@@ -1,0 +1,37 @@
+package cssd.subtask.pkg3;
+import java.sql.Timestamp;
+public class Reading {
+    
+    private Timestamp time;
+    private String location;
+    private String metrics;
+    
+    public Reading() {
+        
+    }
+    
+    public void attachTimestamp(Timestamp time) {
+        this.time = time;
+    }
+    
+    public void attachLocation(String location) {
+        this.location = location;
+    }
+    
+    public void attachMetrics(String metrics) {
+        this.metrics = metrics;
+    }
+    
+    public Timestamp getTimestamp() {
+        return this.time;
+    }
+    
+    public String getLocation() {
+        return this.location;
+    }
+    
+    public String getMetrics() {
+        return this.metrics;
+    }
+    
+}
