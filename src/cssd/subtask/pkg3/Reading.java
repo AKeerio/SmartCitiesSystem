@@ -5,6 +5,7 @@ public class Reading {
     private Timestamp time;
     private String location;
     private String metrics;
+    private double value;
     
     public Reading() {
         
@@ -32,6 +33,10 @@ public class Reading {
     
     public String getMetrics() {
         return this.metrics;
+    }
+    
+    public double getValue() {
+        return this.value;
     }
     
 }
