@@ -15,7 +15,7 @@ public class Rule {
     Float max;
     String Metric;
     
-    public Rule(float minIn, float maxIn, String MetricIn){
+    public Rule(Float minIn, Float maxIn, String MetricIn){
         min=minIn;
         max=maxIn;
         Metric=MetricIn;
