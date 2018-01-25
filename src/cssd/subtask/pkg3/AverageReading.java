@@ -1,23 +1,39 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package cssd.subtask.pkg3;
 
-/**
- *
- * @author Aijaz
- */
+// Louis
+
 public class AverageReading {
-    float Value;
-    String Metric;
-
     
-    public AverageReading(String metric, float measure)
-    {
-        Value = measure;
-        Metric = metric;
+    private String metric;
+    private double value;
+    
+    public AverageReading(String metric, double value) {
+        this.metric = metric;
+        this.value = value;
     }
+    
+    public AverageReading() {
+        
+    }
+    
+    public void setMetric(String metric) {
+        this.metric = metric;
+    }
+    
+    public void setValue(double value) {
+        this.value = value;
+    }
+    
+    public String getMetric() {
+        return this.metric;
+    }
+    
+    public double getValue() {
+        return this.value;
+    }
+    
+    public void incValue(double value) {
+        this.value += value;
+    }
+    
 }
-
