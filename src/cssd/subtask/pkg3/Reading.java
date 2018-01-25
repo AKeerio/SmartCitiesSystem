@@ -23,6 +23,14 @@ public class Reading {
         this.metrics = metrics;
     }
     
+    public void attachValue(double value) {
+        this.value = value;
+    }
+    
+    public void incValue(double value) {
+        this.value += value;
+    }
+    
     public Timestamp getTimestamp() {
         return this.time;
     }
