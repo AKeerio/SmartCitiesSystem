@@ -1,20 +1,26 @@
 package cssd.subtask.pkg3;
 
 public class Sensor {
+
+    // Louis
     
     private final String location;
     private Reading previousReading;
-    private int sensorId;
+    private String sensorId;
     
-    public Sensor(String location) {
+    public Sensor(String location, String sensorId) {
         this.location = location;
         this.previousReading = this.getSensorReading();
     }
     
     public Reading getSensorReading() {
-        // Interface with emulator.
-        // Set value of previous to value returned by emulator.
-        return new Reading();
+        Reading random = new Reading();
+        random.attachLocation(new String[] {"Road1", "Road2", "Road3", "Road4"}[(int)(Math.random() * 10) % 4]);
+        random.attachMetrics("Cars");
+        random.attachTimestamp(SystemClock.getTimestamp());
+        random.attachValue((int)(Math.random() * 10) % 11);
+        this.previousReading = random;
+        return random;
     }
     
     public String getSensorLocation() {
@@ -23,5 +29,9 @@ public class Sensor {
     
     public Reading getLastReading() {
         return this.previousReading;
+    }
+    
+    public String getSensorId() {
+        return this.sensorId;
     }
 }
