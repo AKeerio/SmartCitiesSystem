@@ -18,7 +18,7 @@ public class ActuatorHandler {
         for (int i = 0; i < avgReadings.length; i++) {
             for (int j = 0; j < rules.size(); j++) {
                 Rule temp = (Rule) rules.get(j);
-            if(avgReadings[i].Metric.equals(temp.Metric))
+            if(avgReadings[i].getMetric().equals(temp.Metric))
                 actuator.setStatus(temp.checkRule(avgReadings[i]));
             }
         }

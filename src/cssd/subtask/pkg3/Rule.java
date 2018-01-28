@@ -24,7 +24,7 @@ public class Rule {
     {
         if(min!=null)
         {
-            if(reading.Value<min)
+            if(reading.getValue()<min)
                 return true;
             else
                 return false;
@@ -32,7 +32,7 @@ public class Rule {
         
         if(max!=null    )
         {
-            if(reading.Value>max)            
+            if(reading.getValue()>max)            
                 return true;
             else
                 return false;

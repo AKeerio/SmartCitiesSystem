@@ -1,8 +1,8 @@
 package cssd.subtask.pkg3;
 
-public class Sensor {
-
     // Louis
+
+public class Sensor {
     
     private final String location;
     private Reading previousReading;

@@ -1,6 +1,9 @@
 package cssd.subtask.pkg3;
 import java.sql.Timestamp;
+
 public class Reading {
+    
+    // Louis
     
     private Timestamp time;
     private String location;

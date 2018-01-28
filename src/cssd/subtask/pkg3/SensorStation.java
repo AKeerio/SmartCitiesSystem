@@ -10,6 +10,7 @@ public class SensorStation {
     private final HashMap<String, Integer> metricTypes; // Used to speed up collection of data.
     private int sensorCount;
     private int actuatorCount;
+    private Pulse pulse;
     private final int CHANGE_BY = 1;
     
     public SensorStation() {
@@ -102,6 +103,8 @@ public class SensorStation {
         if(!metricTypes.containsKey(metricType)) {
             metricTypes.put(metricType, metricTypes.size());
         }
+        pulse = new Pulse();
+        pulse.start(sensors); // This is the only way the design permits.
     }   
     
     /**
@@ -140,5 +143,11 @@ public class SensorStation {
         if(!secondDependency) {
             metricTypes.remove(metricType);
         }
+        pulse = new Pulse();
+        pulse.start(sensors); // This is the only way the design permits.
+    }
+    
+    public void addData() { // Todo: Write this.
+        System.out.println("Data Added");
     }
 }
