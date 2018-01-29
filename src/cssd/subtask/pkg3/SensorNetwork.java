@@ -12,13 +12,15 @@ package cssd.subtask.pkg3;
 public class SensorNetwork {
     private SensorStation[] stations;
     private int stationsCount;
-    private final int GROWBY;
+    private final int GROW_BY;
+    private int id;
     
-    SensorNetwork()
+    SensorNetwork(int reference)
     {
         stationsCount =0;
-        GROWBY=10;
-        stations = new SensorStation[GROWBY];
+        GROW_BY=10;
+        stations = new SensorStation[GROW_BY];
+        id = reference;
     }
     SensorStation[] getAllStations()
     {
@@ -33,14 +35,30 @@ public class SensorNetwork {
         stations[stationsCount] = station;
         stationsCount++;
     }
-    void addNewSensor(SensorHandler sensor) 
+    void addNewSensor(SensorStation station, SensorHandler sensor) 
     {
-        stations[0].addNewSensor(sensor);
+        int temp = station.getId();
+        for (int i =0; i<stationsCount; i++)
+        {
+            if (stations[i].getId()==temp)
+            {
+             stations[i].addNewSensor(sensor);   
+             i=stationsCount;
+            }
+        }
     }
     
-    void addNewActuator(ActuatorHandler actuator)
+    void addNewActuator(SensorStation station, ActuatorHandler actuator)
     {
-        stations[0].addNewActuator(actuator);
+        int temp = station.getId();
+        for (int i =0; i<stationsCount; i++)
+        {
+            if (stations[i].getId()==temp)
+            {
+                stations[i].addNewActuator(actuator);
+                i=stationsCount;
+            }
+        }
     }
     
     void deleteStation (SensorStation station)
@@ -49,7 +67,7 @@ public class SensorNetwork {
         {
             if (stations[i].getId() == station.getId())
             {
-                for (int j = i; j<stationsCount-1; j++)
+                for (int j = i; j<stationsCount-2; j++)
                 {
                     stations[j]=stations[j+1];
                 }
@@ -82,8 +100,12 @@ public class SensorNetwork {
     }
     private void resize()
     {
-        SensorStation[] temp = new SensorStation[stations.length+GROWBY];
+        SensorStation[] temp = new SensorStation[stations.length+GROW_BY];
         System.arraycopy(temp, 0, stations, 0, stationsCount);
         stations = temp;
     }    
+
+    int getId() {
+        return id;
+    }
 }
