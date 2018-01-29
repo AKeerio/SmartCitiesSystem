@@ -150,4 +150,16 @@ public class SensorStation {
     public void addData() { // Todo: Write this.
         System.out.println("Data Added");
     }
+
+    void addNewActuator(ActuatorHandler actuator) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    boolean getId() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    void deleteActuator(ActuatorHandler handles) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
