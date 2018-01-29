@@ -26,13 +26,6 @@ public class SensorHandler {
         return reading;
     }
     
-    // tick should return the time since the pulse was last called.
-    // So the pulse calls the notify listener and the tick then is the
-    // amount of time since the listner was last notified. The pulse class
-    // should call the tick function for each sensor handler and compare it
-    // to the pulse time for that same sensor handler. If the tick is equal
-    // to the pulse time, it should notify the listener.
-    
     public boolean tick() {
         return (System.currentTimeMillis() - lastTime) >= pulse;
     }
