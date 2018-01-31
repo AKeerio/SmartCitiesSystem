@@ -6,7 +6,7 @@ import java.util.HashMap;
 public class SensorStation {
     
     private SensorHandler[] sensors;
-    //private ActuatorHandler[] actuators;
+    private ActuatorHandler[] actuators;
     private final HashMap<String, Integer> metricTypes; // Used to speed up collection of data.
     private int sensorCount;
     private int actuatorCount;
@@ -161,5 +161,42 @@ public class SensorStation {
 
     void deleteActuator(ActuatorHandler handles) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    void deleteRule(Rule rule, ActuatorHandler actuator) {
+//        for (int i = 0; i < actuatorCount; i++) {
+//            if(actuators[i]==actuator)
+//            {
+//                Rule[] rules= actuators[i].getRules;
+//                int rulesCount=actuators[i].getRulesCount();
+//                for (int j = 0; j < rulesCount; j++) {
+//                    if(rules[j]==rule)
+//                    {
+//                        for (int k = i; k<rulesCount-2; k++)
+//                        {
+//                            rules[k]=rules[k+1];
+//                        }
+//                        rulesCount--;
+//                        i=rulesCount;
+//                    }
+//                }
+//                actuators[i].setRules(rules);
+//                actuators[i].setRulesCount(rulesCount);
+//                //break;
+//            }
+//        }
+        
+    }
+    
+    void addRule(Float max, Float min, String Metric, ActuatorHandler actuator) {
+        boolean added=false;//Stop the loop once the rule has been added
+        for (int i = 0; i < actuatorCount&& !added; i++) {
+            //if(actuators[i].getId()==actuator.getId()){ 
+            if(actuators[i]==actuator){
+                  actuators[i].addRule(min, max, Metric);
+                  added=true;
+                  //break;
+            }
+        }
     }
 }
