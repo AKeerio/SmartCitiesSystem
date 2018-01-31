@@ -3,12 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/F:/2.%20Year%203/Case%20studies/SmartCitiesC/CSSD%20Assignment/cssd-subtask-3/src/cssd/subtask/pkg3/ActuatorHandler.java</file>
-            <file>file:/F:/2.%20Year%203/Case%20studies/SmartCitiesC/CSSD%20Assignment/cssd-subtask-3/src/cssd/subtask/pkg3/SmartCity.java</file>
-            <file>file:/F:/2.%20Year%203/Case%20studies/SmartCitiesC/CSSD%20Assignment/cssd-subtask-3/src/cssd/subtask/pkg3/SensorStation.java</file>
-            <file>file:/F:/2.%20Year%203/Case%20studies/SmartCitiesC/CSSD%20Assignment/cssd-subtask-3/src/cssd/subtask/pkg3/StationData.java</file>
-            <file>file:/F:/2.%20Year%203/Case%20studies/SmartCitiesC/CSSD%20Assignment/cssd-subtask-3/src/cssd/subtask/pkg3/Rule.java</file>
-            <file>file:/F:/2.%20Year%203/Case%20studies/SmartCitiesC/CSSD%20Assignment/cssd-subtask-3/src/cssd/subtask/pkg3/SensorNetwork.java</file>
+            <file>file:/C:/Users/Aijaz/Desktop/CSSD%20group%20task/cssd-subtask-3/src/cssd/subtask/pkg3/AverageReading.java</file>
+            <file>file:/C:/Users/Aijaz/Desktop/CSSD%20group%20task/cssd-subtask-3/src/cssd/subtask/pkg3/ActuatorHandler.java</file>
+            <file>file:/C:/Users/Aijaz/Desktop/CSSD%20group%20task/cssd-subtask-3/src/cssd/subtask/pkg3/Rule.java</file>
+            <file>file:/C:/Users/Aijaz/Desktop/CSSD%20group%20task/cssd-subtask-3/src/cssd/subtask/pkg3/Actuator.java</file>
         </group>
     </open-files>
 </project-private>
