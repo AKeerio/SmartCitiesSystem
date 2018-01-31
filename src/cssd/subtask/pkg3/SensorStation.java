@@ -6,15 +6,17 @@ import java.util.HashMap;
 public class SensorStation {
     
     private SensorHandler[] sensors;
-    //private ActuatorHandler[] actuators;
+    private ActuatorHandler[] actuators;
     private final HashMap<String, Integer> metricTypes; // Used to speed up collection of data.
     private int sensorCount;
     private int actuatorCount;
     private Pulse pulse;
     private final int CHANGE_BY = 1;
+    private final int id;
     
-    public SensorStation() {
+    public SensorStation(int id) {
         sensors = new SensorHandler[0];
+        actuators = new ActuatorHandler[0];
         sensorCount = 0;
         actuatorCount = 0;
         metricTypes = new HashMap<>();
@@ -147,19 +149,36 @@ public class SensorStation {
         pulse.start(sensors); // This is the only way the design permits.
     }
     
-    public void addData() { // Todo: Write this.
-        System.out.println("Data Added");
+    public void addData() { 
+        // Write this once when all parts of the program are connected together.
     }
 
     void addNewActuator(ActuatorHandler actuator) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(actuatorCount >= actuators.length) {
+            ActuatorHandler[] temp = new ActuatorHandler[actuators.length + CHANGE_BY];
+            System.arraycopy(actuators, 0, temp, 0, actuatorCount);
+            actuators = temp;
+        }
+        actuators[actuatorCount++] = actuator;
     }
 
    int getId() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return id;
     }
 
     void deleteActuator(ActuatorHandler handles) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(actuators.length - actuatorCount >= CHANGE_BY) {
+            ActuatorHandler[] temp = new ActuatorHandler[actuators.length - CHANGE_BY];
+            System.arraycopy(actuators, 0, temp, 0, actuatorCount);
+            actuators = temp;
+        } 
+        for(int i = 0; i < actuatorCount; ++i) {
+            if(actuators[i] == handles) {
+                for(int j = i; j < actuatorCount - 1; ++j) {
+                    actuators[j] = actuators[j + 1];
+                }
+            }
+        }
+        actuatorCount--;
     }
 }
