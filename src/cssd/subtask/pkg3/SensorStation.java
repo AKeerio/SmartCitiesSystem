@@ -20,6 +20,7 @@ public class SensorStation {
         sensorCount = 0;
         actuatorCount = 0;
         metricTypes = new HashMap<>();
+        this.id = id;
     }
     
     /**
