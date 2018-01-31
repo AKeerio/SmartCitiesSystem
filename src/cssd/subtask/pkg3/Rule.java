@@ -14,11 +14,13 @@ public class Rule {
     Float min;
     Float max;
     String Metric;
+    int Id;
     
-    public Rule(Float minIn, Float maxIn, String MetricIn){
+    public Rule(Float minIn, Float maxIn, String MetricIn, int IdIn){
         min=minIn;
         max=maxIn;
         Metric=MetricIn;
+        Id=IdIn;
     }
     public boolean checkRule(AverageReading reading)
     {
@@ -38,5 +40,8 @@ public class Rule {
                 return false;
         }
         return false;
+    }
+    public int getId(){
+        return Id;
     }
 }

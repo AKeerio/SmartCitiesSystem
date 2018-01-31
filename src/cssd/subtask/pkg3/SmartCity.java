@@ -63,7 +63,7 @@ public class SmartCity {
     
     void addNewUser(User addMe)
     {
-             if (usersCount > 0.9*users.length)
+        if (usersCount > 0.9*users.length)
         {
             resizeUsers();
         }

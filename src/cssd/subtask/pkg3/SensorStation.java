@@ -6,6 +6,7 @@ import java.util.HashMap;
 public class SensorStation {
     
     private SensorHandler[] sensors;
+    private ActuatorHandler[] actuators;
     //private ActuatorHandler[] actuators;
     private final HashMap<String, Integer> metricTypes; // Used to speed up collection of data.
     private int sensorCount;
@@ -15,6 +16,7 @@ public class SensorStation {
     
     public SensorStation() {
         sensors = new SensorHandler[0];
+        actuators=new ActuatorHandler[0];
         sensorCount = 0;
         actuatorCount = 0;
         metricTypes = new HashMap<>();
@@ -155,11 +157,47 @@ public class SensorStation {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-   int getId() {
+    int getId() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     void deleteActuator(ActuatorHandler handles) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+     /*
+    Finds the actuator to which the rule needs to be added then add the rule
+    */
+    void addRule(Float min, Float max, String Metric, int Id,ActuatorHandler actuator) {    
+        boolean added=false;
+        for (int i = 0; i < actuatorCount && !added; i++) {
+            if(actuators[i].getId()==actuator.getId())
+            {
+                actuators[i].addRule(max, min, Metric, Id);
+                added=true;
+                //break; //Stops searching once the rule has already been added
+            }
+        }
+    }
+
+    void deleteRule(Rule rule,ActuatorHandler actuator) {
+//        Rule[] rules=actuator.getRules();
+//        int rulesCount=actuator.getRulesCount();
+//        for(int i=0; i<rulesCount; i++)
+//        {
+//            if (rules[i].getId() == rule.getId())
+//            {
+//                for (int j = i; j<rulesCount-2; j++)
+//                {
+//                    rules[j]=rules[j+1];
+//                    
+//                }
+//                    rulesCount--;
+//                    
+//                i=rulesCount;
+//            }
+//        }
+//        
+//        actuator.setRulesCount(rulesCount);
+//        actuator.setRules(rules);
     }
 }
