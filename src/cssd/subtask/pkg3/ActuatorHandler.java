@@ -46,4 +46,22 @@ public class ActuatorHandler {
         rules[rulesCount]=rule;
         rulesCount++;
     }
+
+    Rule[] getRules() {
+        return rules;
+    }
+
+    int getRulesCount() {
+        return rulesCount;
+    }
+
+    void setRules(Rule[] rules) {
+        this.rules=rules;
+    }
+
+    void setRulesCount(int rulesCount) {
+        this.rulesCount=rulesCount;
+    }
+    
+    
 }

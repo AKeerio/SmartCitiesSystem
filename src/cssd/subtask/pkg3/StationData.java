@@ -42,8 +42,8 @@ public class StationData {
         station.deleteRule(rule,actuator);
     }
 
-    public void deleteAlrt(){
-        
+    public void deleteAlert(Alert alert){
+        station.deleteAlert(alert);
     }
     /*
     These two funcitons will used by GUI

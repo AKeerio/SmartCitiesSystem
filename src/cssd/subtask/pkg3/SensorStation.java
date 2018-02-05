@@ -184,27 +184,27 @@ public class SensorStation {
     }
 
     void deleteRule(Rule rule, ActuatorHandler actuator) {
-//        for (int i = 0; i < actuatorCount; i++) {
-//            if(actuators[i]==actuator)
-//            {
-//                Rule[] rules= actuators[i].getRules;
-//                int rulesCount=actuators[i].getRulesCount();
-//                for (int j = 0; j < rulesCount; j++) {
-//                    if(rules[j]==rule)
-//                    {
-//                        for (int k = i; k<rulesCount-2; k++)
-//                        {
-//                            rules[k]=rules[k+1];
-//                        }
-//                        rulesCount--;
-//                        i=rulesCount;
-//                    }
-//                }
-//                actuators[i].setRules(rules);
-//                actuators[i].setRulesCount(rulesCount);
-//                //break;
-//            }
-//        }
+        for (int i = 0; i < actuatorCount; i++) {
+            if(actuators[i]==actuator)
+            {
+                Rule[] rules= actuators[i].getRules();//did this to avoid creating global variables
+                int rulesCount=actuators[i].getRulesCount();
+                for (int j = 0; j < rulesCount; j++) {
+                    if(rules[j]==rule)
+                    {
+                        for (int k = i; k<rulesCount-2; k++)
+                        {
+                            rules[k]=rules[k+1];
+                        }
+                        rulesCount--;
+                        i=rulesCount;
+                    }
+                }
+                actuators[i].setRules(rules);
+                actuators[i].setRulesCount(rulesCount);
+                break;
+            }
+        }
         
     }
     
@@ -215,8 +215,12 @@ public class SensorStation {
             if(actuators[i]==actuator){
                   actuators[i].addRule(min, max, Metric);
                   added=true;
-                  //break;
+                  break;
             }
         }
+    }
+
+    void deleteAlert(Alert alert) {
+        //once getAllAlerts function is done we can find an alert and delte it
     }
 }
