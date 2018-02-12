@@ -5,19 +5,26 @@
  */
 package cssd.subtask.pkg3;
 
+import javax.swing.DefaultListModel;
+
 /**
  *
  * @author b4014007
  */
 public class ControlPanel extends javax.swing.JFrame {
 
+    SmartCity smartCity = new SmartCity();    
+    DefaultListModel networkListModel = new DefaultListModel();
     /**
      * Creates new form ControlPanel
      */
+    
     public ControlPanel() {
         initComponents();
+        
+        
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -34,7 +41,8 @@ public class ControlPanel extends javax.swing.JFrame {
         deleteNetwork = new javax.swing.JButton();
         deleteUser = new javax.swing.JButton();
         deleteStation = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        netWorksPane = new javax.swing.JScrollPane();
+        networksList = new javax.swing.JList<>();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
@@ -83,6 +91,13 @@ public class ControlPanel extends javax.swing.JFrame {
 
         deleteStation.setText("Delete Station");
 
+        networksList.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        netWorksPane.setViewportView(networksList);
+
         addSensor.setText("Add New Sensor");
         addSensor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -100,9 +115,8 @@ public class ControlPanel extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jScrollPane4)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(deleteSensor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(addSensor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(deleteSensor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(addSensor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(188, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -186,7 +200,7 @@ public class ControlPanel extends javax.swing.JFrame {
                         .addContainerGap(318, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane1)
+                            .addComponent(netWorksPane)
                             .addComponent(deleteNetwork, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(addNetwork, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(29, 29, 29)
@@ -219,7 +233,7 @@ public class ControlPanel extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(netWorksPane, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(13, 13, 13)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -244,11 +258,21 @@ public class ControlPanel extends javax.swing.JFrame {
 
     private void addUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addUserActionPerformed
         // TODO add your handling code here:
-       new AddUserPanel().setVisible(true);
+       //new AddUserPanel().setVisible(true);
     }//GEN-LAST:event_addUserActionPerformed
 
     private void addNetworkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNetworkActionPerformed
         // TODO add your handling code here:
+        smartCity.addNewNetwork();
+        SensorNetwork[] networks = smartCity.getAllNetworks();
+        
+        String[] networkId = new String[networks.length];
+        for (int i =0; i<networks.length; i++)
+        {
+            networkId[i]=Integer.toString(networks[i].getId());
+        }
+        networksList.setListData(networkId);
+        
     }//GEN-LAST:event_addNetworkActionPerformed
 
     private void addSensorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addSensorActionPerformed
@@ -258,7 +282,7 @@ public class ControlPanel extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -281,10 +305,11 @@ public class ControlPanel extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(ControlPanel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+            
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                
                 new ControlPanel().setVisible(true);
             }
         });
@@ -306,11 +331,12 @@ public class ControlPanel extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JScrollPane netWorksPane;
+    private javax.swing.JList<String> networksList;
     // End of variables declaration//GEN-END:variables
 }
