@@ -28,27 +28,6 @@ public class Gui extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        controlPanel = new javax.swing.JPanel();
-        controlPanelLabel = new javax.swing.JLabel();
-        addStation = new javax.swing.JButton();
-        addNetwork = new javax.swing.JButton();
-        addSensor = new javax.swing.JButton();
-        addUser = new javax.swing.JButton();
-        addActuator = new javax.swing.JButton();
-        deleteNetwork = new javax.swing.JButton();
-        deleteActuator = new javax.swing.JButton();
-        deleteUser = new javax.swing.JButton();
-        deleteSensor = new javax.swing.JButton();
-        deleteStation = new javax.swing.JButton();
-        addUserPanel = new javax.swing.JPanel();
-        enterUsernameLabel = new javax.swing.JLabel();
-        enterPasswordLabel = new javax.swing.JLabel();
-        reenterPasswordLabel = new javax.swing.JLabel();
-        newUsername = new javax.swing.JTextField();
-        newPassword = new javax.swing.JTextField();
-        newConfirmedPassword = new javax.swing.JTextField();
-        enterNewUserLabel = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
         loginPanel = new javax.swing.JPanel();
         username = new javax.swing.JTextField();
         password = new javax.swing.JTextField();
@@ -56,180 +35,8 @@ public class Gui extends javax.swing.JFrame {
         loginLabel = new javax.swing.JLabel();
         usernameLabel = new javax.swing.JLabel();
         passwordLabel = new javax.swing.JLabel();
-        addNewRule = new javax.swing.JPanel();
-        min = new javax.swing.JTextField();
-        max = new javax.swing.JTextField();
-        metric = new javax.swing.JTextField();
-        addRuleButton = new javax.swing.JButton();
-        addRuleLabel = new javax.swing.JLabel();
-        minLabel = new javax.swing.JLabel();
-        maxLabel = new javax.swing.JLabel();
-        metricLabel = new javax.swing.JLabel();
-        gui = new javax.swing.JPanel();
-        guiLabel = new javax.swing.JLabel();
-        getStationButton = new javax.swing.JButton();
-        createStationDataButton = new javax.swing.JButton();
-        swapGraphsButton = new javax.swing.JButton();
-        exportButton = new javax.swing.JButton();
-        drawButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        controlPanelLabel.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
-        controlPanelLabel.setText("Control  Panel");
-
-        addStation.setText("Add New Station");
-
-        addNetwork.setText("Add New Network");
-
-        addSensor.setText("Add New Sensor");
-
-        addUser.setText("Add New User");
-        addUser.setToolTipText("");
-
-        addActuator.setText("Add New Actuator");
-
-        deleteNetwork.setText("Delete Network");
-
-        deleteActuator.setText("Delete Actuator");
-
-        deleteUser.setText("Delete User");
-        deleteUser.setToolTipText("");
-
-        deleteSensor.setText("Delete Sensor");
-
-        deleteStation.setText("Delete Station");
-
-        javax.swing.GroupLayout controlPanelLayout = new javax.swing.GroupLayout(controlPanel);
-        controlPanel.setLayout(controlPanelLayout);
-        controlPanelLayout.setHorizontalGroup(
-            controlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(controlPanelLayout.createSequentialGroup()
-                .addGroup(controlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(controlPanelLayout.createSequentialGroup()
-                        .addGap(280, 280, 280)
-                        .addComponent(controlPanelLabel))
-                    .addGroup(controlPanelLayout.createSequentialGroup()
-                        .addGap(71, 71, 71)
-                        .addGroup(controlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(deleteNetwork, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(addNetwork, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(controlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(controlPanelLayout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(addStation))
-                            .addGroup(controlPanelLayout.createSequentialGroup()
-                                .addGap(19, 19, 19)
-                                .addComponent(deleteStation, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(18, 18, 18)
-                        .addGroup(controlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(deleteSensor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(addSensor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
-                        .addGroup(controlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(addUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(deleteUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(31, 31, 31)
-                        .addGroup(controlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(addActuator)
-                            .addComponent(deleteActuator, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(28, Short.MAX_VALUE))
-        );
-        controlPanelLayout.setVerticalGroup(
-            controlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(controlPanelLayout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(controlPanelLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35)
-                .addGroup(controlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(addNetwork)
-                    .addComponent(addSensor)
-                    .addComponent(addUser)
-                    .addComponent(addActuator)
-                    .addComponent(addStation))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(controlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(deleteNetwork)
-                    .addComponent(deleteSensor)
-                    .addComponent(deleteUser)
-                    .addComponent(deleteActuator)
-                    .addComponent(deleteStation))
-                .addContainerGap(45, Short.MAX_VALUE))
-        );
-
-        enterUsernameLabel.setText("Enter Username");
-
-        enterPasswordLabel.setText("Enter Password");
-
-        reenterPasswordLabel.setText("Re-etenter Password");
-
-        newUsername.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                newUsernameActionPerformed(evt);
-            }
-        });
-
-        newConfirmedPassword.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                newConfirmedPasswordActionPerformed(evt);
-            }
-        });
-
-        enterNewUserLabel.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        enterNewUserLabel.setText("Enter New User");
-
-        jButton1.setText("Add New User");
-
-        javax.swing.GroupLayout addUserPanelLayout = new javax.swing.GroupLayout(addUserPanel);
-        addUserPanel.setLayout(addUserPanelLayout);
-        addUserPanelLayout.setHorizontalGroup(
-            addUserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(addUserPanelLayout.createSequentialGroup()
-                .addGroup(addUserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(addUserPanelLayout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addGroup(addUserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(addUserPanelLayout.createSequentialGroup()
-                                .addGroup(addUserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(enterUsernameLabel)
-                                    .addComponent(enterPasswordLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(addUserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(newPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
-                                    .addComponent(newUsername)))
-                            .addGroup(addUserPanelLayout.createSequentialGroup()
-                                .addComponent(reenterPasswordLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(newConfirmedPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(addUserPanelLayout.createSequentialGroup()
-                        .addGap(37, 37, 37)
-                        .addComponent(enterNewUserLabel))
-                    .addGroup(addUserPanelLayout.createSequentialGroup()
-                        .addGap(79, 79, 79)
-                        .addComponent(jButton1)))
-                .addContainerGap(37, Short.MAX_VALUE))
-        );
-        addUserPanelLayout.setVerticalGroup(
-            addUserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(addUserPanelLayout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addComponent(enterNewUserLabel)
-                .addGap(38, 38, 38)
-                .addGroup(addUserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(enterUsernameLabel)
-                    .addComponent(newUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(addUserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(newPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(enterPasswordLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(addUserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(newConfirmedPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(reenterPasswordLabel))
-                .addGap(18, 18, 18)
-                .addComponent(jButton1)
-                .addContainerGap(18, Short.MAX_VALUE))
-        );
 
         loginButton.setText("Login");
 
@@ -280,200 +87,29 @@ public class Gui extends javax.swing.JFrame {
                 .addComponent(loginButton))
         );
 
-        min.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                minActionPerformed(evt);
-            }
-        });
-
-        addRuleButton.setText("Add Rule");
-
-        addRuleLabel.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        addRuleLabel.setText("Add Rule");
-
-        minLabel.setText("Min");
-
-        maxLabel.setText("Max");
-
-        metricLabel.setText("Metric");
-
-        guiLabel.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        guiLabel.setText("GUI");
-
-        getStationButton.setText("Get Station");
-
-        createStationDataButton.setText("Create Station Data");
-
-        swapGraphsButton.setText("Swap graphs");
-        swapGraphsButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                swapGraphsButtonActionPerformed(evt);
-            }
-        });
-
-        exportButton.setText("Export");
-        exportButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                exportButtonActionPerformed(evt);
-            }
-        });
-
-        drawButton.setText("Draw");
-
-        javax.swing.GroupLayout guiLayout = new javax.swing.GroupLayout(gui);
-        gui.setLayout(guiLayout);
-        guiLayout.setHorizontalGroup(
-            guiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(guiLayout.createSequentialGroup()
-                .addGap(55, 55, 55)
-                .addGroup(guiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(getStationButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(guiLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(createStationDataButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(swapGraphsButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(exportButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(drawButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(100, Short.MAX_VALUE))
-        );
-        guiLayout.setVerticalGroup(
-            guiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(guiLayout.createSequentialGroup()
-                .addComponent(guiLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(17, 17, 17)
-                .addComponent(getStationButton)
-                .addGap(18, 18, 18)
-                .addComponent(createStationDataButton)
-                .addGap(18, 18, 18)
-                .addComponent(swapGraphsButton)
-                .addGap(18, 18, 18)
-                .addComponent(exportButton)
-                .addGap(18, 18, 18)
-                .addComponent(drawButton)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout addNewRuleLayout = new javax.swing.GroupLayout(addNewRule);
-        addNewRule.setLayout(addNewRuleLayout);
-        addNewRuleLayout.setHorizontalGroup(
-            addNewRuleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(addNewRuleLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(gui, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(addNewRuleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(addNewRuleLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(addRuleButton, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(addNewRuleLayout.createSequentialGroup()
-                        .addGroup(addNewRuleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(addNewRuleLayout.createSequentialGroup()
-                                .addGroup(addNewRuleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(minLabel)
-                                    .addComponent(maxLabel)
-                                    .addComponent(metricLabel))
-                                .addGap(18, 18, 18)
-                                .addGroup(addNewRuleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(metric, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
-                                    .addComponent(max)
-                                    .addComponent(min)))
-                            .addGroup(addNewRuleLayout.createSequentialGroup()
-                                .addGap(13, 13, 13)
-                                .addComponent(addRuleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(45, Short.MAX_VALUE))))
-        );
-        addNewRuleLayout.setVerticalGroup(
-            addNewRuleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(addNewRuleLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(addNewRuleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(gui, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(addNewRuleLayout.createSequentialGroup()
-                        .addComponent(addRuleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(12, 12, 12)
-                        .addGroup(addNewRuleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(min, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(minLabel))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(addNewRuleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(max, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(maxLabel))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(addNewRuleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(metric, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(metricLabel))
-                        .addGap(18, 18, 18)
-                        .addComponent(addRuleButton)))
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(controlPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(0, 0, 0))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(422, 422, 422)
-                    .addComponent(addUserPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(423, Short.MAX_VALUE)))
+            .addGap(0, 1107, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(415, 415, 415)
                     .addComponent(loginPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(416, Short.MAX_VALUE)))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(315, 315, 315)
-                    .addComponent(addNewRule, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(316, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(controlPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(142, 142, 142)
-                    .addComponent(addUserPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(143, Short.MAX_VALUE)))
+            .addGap(0, 497, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(149, 149, 149)
                     .addComponent(loginPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(149, Short.MAX_VALUE)))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(112, 112, 112)
-                    .addComponent(addNewRule, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(113, Short.MAX_VALUE)))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void exportButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_exportButtonActionPerformed
-
-    private void swapGraphsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_swapGraphsButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_swapGraphsButtonActionPerformed
-
-    private void minActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_minActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_minActionPerformed
-
-    private void newConfirmedPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newConfirmedPasswordActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_newConfirmedPasswordActionPerformed
-
-    private void newUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newUsernameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_newUsernameActionPerformed
 
     /**
      * @param args the command line arguments
@@ -512,48 +148,11 @@ public class Gui extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton addActuator;
-    private javax.swing.JButton addNetwork;
-    private javax.swing.JPanel addNewRule;
-    private javax.swing.JButton addRuleButton;
-    private javax.swing.JLabel addRuleLabel;
-    private javax.swing.JButton addSensor;
-    private javax.swing.JButton addStation;
-    private javax.swing.JButton addUser;
-    private javax.swing.JPanel addUserPanel;
-    private javax.swing.JPanel controlPanel;
-    private javax.swing.JLabel controlPanelLabel;
-    private javax.swing.JButton createStationDataButton;
-    private javax.swing.JButton deleteActuator;
-    private javax.swing.JButton deleteNetwork;
-    private javax.swing.JButton deleteSensor;
-    private javax.swing.JButton deleteStation;
-    private javax.swing.JButton deleteUser;
-    private javax.swing.JButton drawButton;
-    private javax.swing.JLabel enterNewUserLabel;
-    private javax.swing.JLabel enterPasswordLabel;
-    private javax.swing.JLabel enterUsernameLabel;
-    private javax.swing.JButton exportButton;
-    private javax.swing.JButton getStationButton;
-    private javax.swing.JPanel gui;
-    private javax.swing.JLabel guiLabel;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton loginButton;
     private javax.swing.JLabel loginLabel;
     private javax.swing.JPanel loginPanel;
-    private javax.swing.JTextField max;
-    private javax.swing.JLabel maxLabel;
-    private javax.swing.JTextField metric;
-    private javax.swing.JLabel metricLabel;
-    private javax.swing.JTextField min;
-    private javax.swing.JLabel minLabel;
-    private javax.swing.JTextField newConfirmedPassword;
-    private javax.swing.JTextField newPassword;
-    private javax.swing.JTextField newUsername;
     private javax.swing.JTextField password;
     private javax.swing.JLabel passwordLabel;
-    private javax.swing.JLabel reenterPasswordLabel;
-    private javax.swing.JButton swapGraphsButton;
     private javax.swing.JTextField username;
     private javax.swing.JLabel usernameLabel;
     // End of variables declaration//GEN-END:variables

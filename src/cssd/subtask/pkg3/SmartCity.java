@@ -28,13 +28,13 @@ public class SmartCity {
         return networks;
     }
     
-    void addNewNetwork(SensorNetwork network)
+    void addNewNetwork()
     {
           if (networksCount > 0.9*networks.length)
         {
             resizeNetworks();
         }
-        networks[networksCount] = network;
+        networks[networksCount] = new SensorNetwork(networksCount);
         networksCount++;
     }
     void addNewStation(SensorNetwork network, SensorStation station){
