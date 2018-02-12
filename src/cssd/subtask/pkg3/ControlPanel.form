@@ -28,8 +28,8 @@
               <Group type="103" groupAlignment="1" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="addUser" alignment="0" max="32767" attributes="0"/>
-                          <Component id="deleteUser" alignment="0" min="-2" pref="101" max="-2" attributes="0"/>
+                          <Component id="deleteUser" max="32767" attributes="0"/>
+                          <Component id="addUser" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="149" max="-2" attributes="0"/>
                       <Component id="controlPanelLabel" min="-2" max="-2" attributes="0"/>
@@ -116,6 +116,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Add New Station"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addStationActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="addNetwork">
       <Properties>
@@ -139,6 +142,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Delete Network"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="deleteNetworkActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="deleteUser">
       <Properties>
@@ -150,6 +156,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Delete Station"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="deleteStationActionPerformed"/>
+      </Events>
     </Component>
     <Container class="javax.swing.JScrollPane" name="netWorksPane">
 
@@ -167,6 +176,9 @@
               </StringArray>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="valueChanged" listener="javax.swing.event.ListSelectionListener" parameters="javax.swing.event.ListSelectionEvent" handler="networksListValueChanged"/>
+          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
@@ -176,6 +188,18 @@
     <Container class="javax.swing.JScrollPane" name="jScrollPane3">
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+      <SubComponents>
+        <Component class="javax.swing.JList" name="stationsList">
+          <Properties>
+            <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
+              <StringArray count="0"/>
+            </Property>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+          </AuxValues>
+        </Component>
+      </SubComponents>
     </Container>
     <Container class="javax.swing.JTabbedPane" name="jTabbedPane1">
 

@@ -30,7 +30,7 @@ public class SmartCity {
     
     void addNewNetwork()
     {
-          if (networksCount > 0.9*networks.length)
+        if (networksCount > 0.9*networks.length)
         {
             resizeNetworks();
         }
@@ -152,7 +152,9 @@ public class SmartCity {
             }
         }
     }
-    
+    int getNetworksCount(){
+        return this.networksCount;
+    }
     void resizeNetworks()
     {
         SensorNetwork[] temp = new SensorNetwork[networks.length+GROW_BY];

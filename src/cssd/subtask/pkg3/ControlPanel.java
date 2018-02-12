@@ -6,6 +6,7 @@
 package cssd.subtask.pkg3;
 
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -13,16 +14,17 @@ import javax.swing.DefaultListModel;
  */
 public class ControlPanel extends javax.swing.JFrame {
 
-    SmartCity smartCity = new SmartCity();    
-    DefaultListModel networkListModel = new DefaultListModel();
+    private SmartCity smartCity = new SmartCity();    
+    private SensorNetwork[] networks = smartCity.getAllNetworks();
+    private SensorStation[] stations;
+    private DefaultListModel networksModel=new DefaultListModel();
+    private DefaultListModel stationsModel=new DefaultListModel();
     /**
      * Creates new form ControlPanel
      */
     
     public ControlPanel() {
-        initComponents();
-        
-        
+        initComponents();      
     }
     
     /**
@@ -44,6 +46,7 @@ public class ControlPanel extends javax.swing.JFrame {
         netWorksPane = new javax.swing.JScrollPane();
         networksList = new javax.swing.JList<>();
         jScrollPane3 = new javax.swing.JScrollPane();
+        stationsList = new javax.swing.JList<>();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
@@ -63,6 +66,11 @@ public class ControlPanel extends javax.swing.JFrame {
         controlPanelLabel.setText("Control  Panel");
 
         addStation.setText("Add New Station");
+        addStation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addStationActionPerformed(evt);
+            }
+        });
 
         addNetwork.setText("Add New Network");
         addNetwork.addActionListener(new java.awt.event.ActionListener() {
@@ -85,18 +93,35 @@ public class ControlPanel extends javax.swing.JFrame {
         });
 
         deleteNetwork.setText("Delete Network");
+        deleteNetwork.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteNetworkActionPerformed(evt);
+            }
+        });
 
         deleteUser.setText("Delete User");
         deleteUser.setToolTipText("");
 
         deleteStation.setText("Delete Station");
+        deleteStation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteStationActionPerformed(evt);
+            }
+        });
 
         networksList.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
+        networksList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                networksListValueChanged(evt);
+            }
+        });
         netWorksPane.setViewportView(networksList);
+
+        jScrollPane3.setViewportView(stationsList);
 
         addSensor.setText("Add New Sensor");
         addSensor.addActionListener(new java.awt.event.ActionListener() {
@@ -193,8 +218,8 @@ public class ControlPanel extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(addUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(deleteUser, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(deleteUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(addUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(149, 149, 149)
                         .addComponent(controlPanelLabel)
                         .addContainerGap(318, Short.MAX_VALUE))
@@ -262,58 +287,128 @@ public class ControlPanel extends javax.swing.JFrame {
     }//GEN-LAST:event_addUserActionPerformed
 
     private void addNetworkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNetworkActionPerformed
-        // TODO add your handling code here:
         smartCity.addNewNetwork();
-        SensorNetwork[] networks = smartCity.getAllNetworks();
-        
-        String[] networkId = new String[networks.length];
-        for (int i =0; i<networks.length; i++)
-        {
-            networkId[i]=Integer.toString(networks[i].getId());
-        }
-        networksList.setListData(networkId);
-        
+        networks = smartCity.getAllNetworks();
+        networksModel.addElement(""+networks[smartCity.getNetworksCount()-1].getId());
+        networksList.setModel(networksModel);        
+        JOptionPane.showMessageDialog(null, "network added");
     }//GEN-LAST:event_addNetworkActionPerformed
 
     private void addSensorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addSensorActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_addSensorActionPerformed
 
+    private void networksListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_networksListValueChanged
+      
+        String tmp=networksList.getSelectedValue();
+        if(tmp!=null)
+        {
+            stationsModel.removeAllElements();
+            int index = Integer.parseInt(tmp);
+            SensorStation[] stations = networks[index].getAllStations();
+        
+            for (int i=0;i<networks[index].getStationsCount(); i++)
+            {
+                stationsModel.addElement(""+stations[i].getId());                  
+            }
+            stationsList.setModel(stationsModel);
+        }
+    }//GEN-LAST:event_networksListValueChanged
+
+    private void addStationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addStationActionPerformed
+        String tmp=networksList.getSelectedValue();
+        int tmpID=0;
+        SensorStation tmpStation=new SensorStation(0);//we to pass a station. I have created a tmp one for now
+        if(tmp!=null)
+        {
+            int index = Integer.parseInt(tmp);
+            networks[index].addNewStation(tmpStation);
+            stations = networks[index].getAllStations();
+            stationsModel.addElement(""+tmpStation.getId());
+            stationsList.setModel(stationsModel);            
+        
+            JOptionPane.showMessageDialog(null, "Station added");
+        }
+    }//GEN-LAST:event_addStationActionPerformed
+
+    private void deleteNetworkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteNetworkActionPerformed
+        int reply = JOptionPane.showConfirmDialog(this, "Do you want to delete this network?", "Delete Network", JOptionPane.YES_NO_OPTION);
+        if (reply == JOptionPane.YES_OPTION) {
+        String tmp=networksList.getSelectedValue();
+            if(tmp!=null)
+            {
+                int index = Integer.parseInt(tmp);
+                smartCity.deleteNetwork(networks[index]);
+                networksModel.remove(networksList.getSelectedIndex());
+                networksList.setModel(networksModel);
+            }
+        }else{}
+    }//GEN-LAST:event_deleteNetworkActionPerformed
+
+    private void deleteStationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteStationActionPerformed
+        int reply = JOptionPane.showConfirmDialog(this, "Do you want to delete this station?", "Delete station", JOptionPane.YES_NO_OPTION);
+        if (reply == JOptionPane.YES_OPTION) {
+          String tmp=stationsList.getSelectedValue();
+            int networkIndex=Integer.parseInt(networksList.getSelectedValue());
+            if(tmp!=null)
+            {
+                int index = Integer.parseInt(tmp);
+                networks[networkIndex].deleteStation(stations[index]);
+                stationsModel.remove(stationsList.getSelectedIndex());
+                stationsList.setModel(stationsModel);
+            }
+        }else{}
+      
+    }//GEN-LAST:event_deleteStationActionPerformed
+
+    public void addExistingNetworks()
+    {
+        //demo networks to add them initially
+        smartCity.addNewNetwork();
+        smartCity.addNewNetwork();
+        networks = smartCity.getAllNetworks();
+        for (int i =0; i<smartCity.getNetworksCount();  i++)
+        {
+            networksModel.addElement(""+networks[i].getId());
+        }
+        networksList.setModel(networksModel);
+    }
     /**
      * @param args the command line arguments
      */
-    public void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ControlPanel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ControlPanel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ControlPanel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ControlPanel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-            
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                
-                new ControlPanel().setVisible(true);
-            }
-        });
-    }
+//    public void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(ControlPanel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(ControlPanel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(ControlPanel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(ControlPanel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//            
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                ControlPanel cp= new ControlPanel();
+//                cp.addExistingNetworks();
+//                cp.setVisible(true);
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addActuator;
@@ -338,5 +433,6 @@ public class ControlPanel extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JScrollPane netWorksPane;
     private javax.swing.JList<String> networksList;
+    private javax.swing.JList<String> stationsList;
     // End of variables declaration//GEN-END:variables
 }

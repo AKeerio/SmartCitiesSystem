@@ -26,6 +26,10 @@ public class SensorNetwork {
     {
         return stations;
     }
+    int getStationsCount()
+    {
+        return stationsCount;
+    }
     void addNewStation(SensorStation station)
     {
         if (stationsCount > 0.9*stations.length)
