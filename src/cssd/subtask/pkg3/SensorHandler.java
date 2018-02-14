@@ -9,6 +9,7 @@ public class SensorHandler {
     private long pulse;
     private long lastTime;
     private final long DEFAULT_PULSE;
+    private int Id;
     
     public SensorHandler(Sensor sensor) {
         DEFAULT_PULSE = 1000;
@@ -46,6 +47,15 @@ public class SensorHandler {
         lastTime = System.currentTimeMillis();
         Reading reading = getLastReading();
         listener.Trigger(reading); // If you get an error here, you've not set the listener.
+    }
+
+    void SetId(int i) {
+        Id = i;
+    }
+    
+    int getId()
+    {
+        return this.Id;
     }
     
 }

@@ -9,6 +9,7 @@ public class SensorStation {
     private ActuatorHandler[] actuators;
     private final HashMap<String, Integer> metricTypes; // Used to speed up collection of data.
     private int sensorCount;
+    private int sensorCountMax;
     private int actuatorCount;
     private Pulse pulse;
     private final int CHANGE_BY = 1;
@@ -18,10 +19,12 @@ public class SensorStation {
         sensors = new SensorHandler[0];
         actuators = new ActuatorHandler[0];
         sensorCount = 0;
+        sensorCountMax =0;
         actuatorCount = 0;
         metricTypes = new HashMap<>();
         this.id = id;
     }
+    
     
     /**
      * Returns an array of Reading objects containing the last known readings for
@@ -101,6 +104,7 @@ public class SensorStation {
             System.arraycopy(sensors, 0, temp, 0, sensorCount);
             sensors = temp;
         }
+        sensor.SetId(sensorCountMax++);
         sensors[sensorCount++] = sensor;
         String metricType = sensor.getLastReading().getMetrics(); // We're simply accessing the reading, not changing it.
         if(!metricTypes.containsKey(metricType)) {
@@ -223,4 +227,16 @@ public class SensorStation {
     void deleteAlert(Alert alert) {
         //once getAllAlerts function is done we can find an alert and delte it
     }
+    
+    
+    SensorHandler[] getAllSensors()
+    {
+        return this.sensors;
+    }
+    
+    int getSensorCount()
+    {
+        return this.sensorCount;
+    }
+
 }

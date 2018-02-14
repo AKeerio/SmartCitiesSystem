@@ -17,8 +17,11 @@ public class ControlPanel extends javax.swing.JFrame {
     private SmartCity smartCity = new SmartCity();    
     private SensorNetwork[] networks = smartCity.getAllNetworks();
     private SensorStation[] stations;
+    private SensorHandler[] sensors;
+    
     private DefaultListModel networksModel=new DefaultListModel();
     private DefaultListModel stationsModel=new DefaultListModel();
+    private DefaultListModel sensorsModel=new DefaultListModel();
     /**
      * Creates new form ControlPanel
      */
@@ -47,11 +50,13 @@ public class ControlPanel extends javax.swing.JFrame {
         networksList = new javax.swing.JList<>();
         jScrollPane3 = new javax.swing.JScrollPane();
         stationsList = new javax.swing.JList<>();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        sensorsTab = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
+        sensorsList = new javax.swing.JList<>();
         addSensor = new javax.swing.JButton();
         deleteSensor = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
         addActuator = new javax.swing.JButton();
@@ -121,7 +126,14 @@ public class ControlPanel extends javax.swing.JFrame {
         });
         netWorksPane.setViewportView(networksList);
 
+        stationsList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                stationsListValueChanged(evt);
+            }
+        });
         jScrollPane3.setViewportView(stationsList);
+
+        jScrollPane4.setViewportView(sensorsList);
 
         addSensor.setText("Add New Sensor");
         addSensor.addActionListener(new java.awt.event.ActionListener() {
@@ -131,6 +143,22 @@ public class ControlPanel extends javax.swing.JFrame {
         });
 
         deleteSensor.setText("Delete Sensor");
+        deleteSensor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteSensorActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 174, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -138,24 +166,30 @@ public class ControlPanel extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jScrollPane4)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(addSensor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(deleteSensor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(addSensor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(188, Short.MAX_VALUE))
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGap(169, 169, 169)
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(addSensor)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(deleteSensor)
                 .addGap(10, 10, 10))
         );
 
-        jTabbedPane1.addTab("tab4", jPanel1);
+        sensorsTab.addTab("Sensors", jPanel1);
 
         addActuator.setText("Add New Actuator");
 
@@ -174,7 +208,7 @@ public class ControlPanel extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(deleteActuator, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(addActuator))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -184,12 +218,12 @@ public class ControlPanel extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createSequentialGroup()
                     .addGap(14, 14, 14)
                     .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(191, Short.MAX_VALUE)))
+                    .addContainerGap(178, Short.MAX_VALUE)))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(14, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -207,7 +241,7 @@ public class ControlPanel extends javax.swing.JFrame {
                     .addContainerGap(77, Short.MAX_VALUE)))
         );
 
-        jTabbedPane1.addTab("tab2", jPanel2);
+        sensorsTab.addTab("Actuator and rules", jPanel2);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -237,8 +271,8 @@ public class ControlPanel extends javax.swing.JFrame {
                                 .addComponent(addStation))
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(37, 37, 37)
-                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(150, 150, 150))))
+                        .addComponent(sensorsTab, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(163, 163, 163))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -253,7 +287,7 @@ public class ControlPanel extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(deleteUser)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTabbedPane1)
+                .addComponent(sensorsTab)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -290,23 +324,20 @@ public class ControlPanel extends javax.swing.JFrame {
         smartCity.addNewNetwork();
         networks = smartCity.getAllNetworks();
         networksModel.addElement(""+networks[smartCity.getNetworksCount()-1].getId());
-        networksList.setModel(networksModel);        
-        JOptionPane.showMessageDialog(null, "network added");
+        networksList.setModel(networksModel);
+  //      JOptionPane.showMessageDialog(null, "network added");
     }//GEN-LAST:event_addNetworkActionPerformed
-
-    private void addSensorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addSensorActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_addSensorActionPerformed
 
     private void networksListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_networksListValueChanged
       
-        String tmp=networksList.getSelectedValue();
-        if(tmp!=null)
+       
+        if(networksList.getSelectedValue()!=null)
         {
             stationsModel.removeAllElements();
-            int index = Integer.parseInt(tmp);
+            int index = networksList.getSelectedIndex();
             SensorStation[] stations = networks[index].getAllStations();
-        
+            //JOptionPane.showMessageDialog(null, index + " \t " + smartCity.getNetworksCount());
+            
             for (int i=0;i<networks[index].getStationsCount(); i++)
             {
                 stationsModel.addElement(""+stations[i].getId());                  
@@ -316,50 +347,105 @@ public class ControlPanel extends javax.swing.JFrame {
     }//GEN-LAST:event_networksListValueChanged
 
     private void addStationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addStationActionPerformed
-        String tmp=networksList.getSelectedValue();
-        int tmpID=0;
-        SensorStation tmpStation=new SensorStation(0);//we to pass a station. I have created a tmp one for now
-        if(tmp!=null)
+        
+        
+        if(networksList.getSelectedValue()!=null)
         {
-            int index = Integer.parseInt(tmp);
-            networks[index].addNewStation(tmpStation);
+            int index = networksList.getSelectedIndex();
+            networks[index].addNewStation();
             stations = networks[index].getAllStations();
-            stationsModel.addElement(""+tmpStation.getId());
+            stationsModel.addElement(""+stations[networks[index].getStationsCount()-1].getId());
             stationsList.setModel(stationsModel);            
         
-            JOptionPane.showMessageDialog(null, "Station added");
+       //     JOptionPane.showMessageDialog(null, "Station added");
         }
     }//GEN-LAST:event_addStationActionPerformed
 
     private void deleteNetworkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteNetworkActionPerformed
         int reply = JOptionPane.showConfirmDialog(this, "Do you want to delete this network?", "Delete Network", JOptionPane.YES_NO_OPTION);
         if (reply == JOptionPane.YES_OPTION) {
-        String tmp=networksList.getSelectedValue();
-            if(tmp!=null)
+            if(networksList.getSelectedValue()!=null)
             {
-                int index = Integer.parseInt(tmp);
+                int index = networksList.getSelectedIndex();
                 smartCity.deleteNetwork(networks[index]);
                 networksModel.remove(networksList.getSelectedIndex());
                 networksList.setModel(networksModel);
+                networks=smartCity.getAllNetworks();
             }
-        }else{}
+        }
     }//GEN-LAST:event_deleteNetworkActionPerformed
 
     private void deleteStationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteStationActionPerformed
         int reply = JOptionPane.showConfirmDialog(this, "Do you want to delete this station?", "Delete station", JOptionPane.YES_NO_OPTION);
         if (reply == JOptionPane.YES_OPTION) {
-          String tmp=stationsList.getSelectedValue();
-            int networkIndex=Integer.parseInt(networksList.getSelectedValue());
-            if(tmp!=null)
+            int networkIndex=networksList.getSelectedIndex();
+            if(stationsList.getSelectedValue()!=null)
             {
-                int index = Integer.parseInt(tmp);
+                int index = stationsList.getSelectedIndex();
                 networks[networkIndex].deleteStation(stations[index]);
                 stationsModel.remove(stationsList.getSelectedIndex());
                 stationsList.setModel(stationsModel);
             }
-        }else{}
+        }
       
     }//GEN-LAST:event_deleteStationActionPerformed
+
+    private void addSensorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addSensorActionPerformed
+        
+        String location = JOptionPane.showInputDialog("Input a location for the sensor");
+        String Id = JOptionPane.showInputDialog("Input a Id for the sensor");
+  //      String  Id = JOptionPane.showInputDialog("Input an id for the sensor");
+  
+        Sensor sensor =new Sensor(location);
+        SensorHandler sensorHandler=new SensorHandler(sensor);
+        stationsList.getSelectedValue();
+        int currentNetwork=Integer.parseInt(networksList.getSelectedValue());
+        for (int i = 0; i < networks[currentNetwork].getStationsCount(); i++) {
+            int stationId=Integer.parseInt(stationsList.getSelectedValue());
+            if(stations[i].getId()==stationId)
+            {
+                stations[stationId].addNewSensor(sensorHandler);
+            }
+        }
+        
+        sensorsModel.addElement(sensorHandler.getId()+"");
+        sensorsList.setModel(sensorsModel);//update list
+    }//GEN-LAST:event_addSensorActionPerformed
+
+    private void deleteSensorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteSensorActionPerformed
+        
+        int reply = JOptionPane.showConfirmDialog(this, "Do you want to delete this sensor?", "Delete sensor", JOptionPane.YES_NO_OPTION);
+        if (reply == JOptionPane.YES_OPTION) {
+            int stationIndex=stationsList.getSelectedIndex();
+            if(sensorsList.getSelectedValue()!=null)
+            {
+                int index = sensorsList.getSelectedIndex();
+                stations[stationIndex].deleteSensor(sensors[index]);
+                sensorsModel.remove(sensorsList.getSelectedIndex());
+                sensorsList.setModel(sensorsModel);
+            }
+        }
+
+    }//GEN-LAST:event_deleteSensorActionPerformed
+
+    private void stationsListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_stationsListValueChanged
+  
+        if(stationsList.getSelectedValue()!=null)
+        {
+            sensorsModel.removeAllElements();
+            int index = stationsList.getSelectedIndex();
+            sensors = stations[index].getAllSensors();//needs to be implemented
+            //JOptionPane.showMessageDialog(null, index + " \t " + smartCity.getNetworksCount());
+            
+            for (int i=0;i<stations[index].getSensorCount(); i++)
+            {
+                sensorsModel.addElement(""+sensors[i].getId());                  
+            }
+            sensorsList.setModel(sensorsModel);
+        }
+      
+      //code here to actaully delete sensors from backend
+    }//GEN-LAST:event_stationsListValueChanged
 
     public void addExistingNetworks()
     {
@@ -426,13 +512,15 @@ public class ControlPanel extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
-    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JScrollPane netWorksPane;
     private javax.swing.JList<String> networksList;
+    private javax.swing.JList<String> sensorsList;
+    private javax.swing.JTabbedPane sensorsTab;
     private javax.swing.JList<String> stationsList;
     // End of variables declaration//GEN-END:variables
 }

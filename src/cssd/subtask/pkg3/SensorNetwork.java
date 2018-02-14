@@ -13,7 +13,9 @@ public class SensorNetwork {
     private SensorStation[] stations;
     private int stationsCount;
     private final int GROW_BY;
+    private int StationsCreated;
     private int id;
+   
     
     SensorNetwork(int reference)
     {
@@ -30,14 +32,16 @@ public class SensorNetwork {
     {
         return stationsCount;
     }
-    void addNewStation(SensorStation station)
+    void addNewStation()
     {
         if (stationsCount > 0.9*stations.length)
         {
             resize();
         }
+       SensorStation station = new SensorStation(this.StationsCreated);
         stations[stationsCount] = station;
         stationsCount++;
+        StationsCreated++;
     }
     void addNewSensor(SensorStation station, SensorHandler sensor) 
     {

@@ -6,10 +6,10 @@ public class Sensor {
     
     private final String location;
     private Reading previousReading;
-    private String sensorId;
     
-    public Sensor(String location, String sensorId) {
+    public Sensor(String location /*, String sensorId*/) {
         this.location = location;
+        //this.sensorId=sensorId;
         this.previousReading = this.getSensorReading();
     }
     
@@ -31,7 +31,7 @@ public class Sensor {
         return this.previousReading;
     }
     
-    public String getSensorId() {
+  /*  public String getSensorId() {
         return this.sensorId;
-    }
+    }*/
 }

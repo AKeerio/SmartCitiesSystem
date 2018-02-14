@@ -15,6 +15,7 @@ public class SmartCity {
     private final int GROW_BY;
     private SensorNetwork[] networks;
     private int networksCount = 0;
+    private int networksCreated =0;
     private int usersCount =0;
     private User[] users;
     SmartCity()
@@ -34,16 +35,17 @@ public class SmartCity {
         {
             resizeNetworks();
         }
-        networks[networksCount] = new SensorNetwork(networksCount);
+        networks[networksCount] = new SensorNetwork(networksCreated);
         networksCount++;
+        this.networksCreated++;
     }
-    void addNewStation(SensorNetwork network, SensorStation station){
+    void addNewStation(SensorNetwork network){
              int temp = network.getId();
         for (int i =0; i<networksCount; i++)
         {
             if (networks[i].getId()==temp)
             {
-                networks[i].addNewStation(station);
+                networks[i].addNewStation();
                 i=networksCount;
             }
         }
