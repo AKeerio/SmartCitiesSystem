@@ -25,6 +25,9 @@ public class ControlPanel extends javax.swing.JFrame {
     /**
      * Creates new form ControlPanel
      */
+        public SmartCity getSmartCity (){
+            return smartCity;
+        }
     
     public ControlPanel() {
         initComponents();      
@@ -64,6 +67,7 @@ public class ControlPanel extends javax.swing.JFrame {
         jScrollPane6 = new javax.swing.JScrollPane();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        showGUI = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -243,6 +247,13 @@ public class ControlPanel extends javax.swing.JFrame {
 
         sensorsTab.addTab("Actuator and rules", jPanel2);
 
+        showGUI.setText("Show GUI");
+        showGUI.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showGUIActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -250,13 +261,6 @@ public class ControlPanel extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(deleteUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(addUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(149, 149, 149)
-                        .addComponent(controlPanelLabel)
-                        .addContainerGap(318, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(netWorksPane)
@@ -272,7 +276,16 @@ public class ControlPanel extends javax.swing.JFrame {
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(37, 37, 37)
                         .addComponent(sensorsTab, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(163, 163, 163))))
+                        .addGap(163, 163, 163))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(deleteUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(addUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(149, 149, 149)
+                        .addComponent(controlPanelLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 210, Short.MAX_VALUE)
+                        .addComponent(showGUI)
+                        .addGap(29, 29, 29))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -285,7 +298,10 @@ public class ControlPanel extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(addUser)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(deleteUser)))
+                        .addComponent(deleteUser))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(showGUI)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(sensorsTab)
                 .addContainerGap())
@@ -462,6 +478,14 @@ public class ControlPanel extends javax.swing.JFrame {
       //code here to actaully delete sensors from backend
     }//GEN-LAST:event_stationsListValueChanged
 
+    private void showGUIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showGUIActionPerformed
+        // TODO add your handling code here:
+        this.setVisible(false);
+        GUI gui= new GUI();
+        gui.setSmartCity(this.smartCity);
+        gui.setVisible(true);
+    }//GEN-LAST:event_showGUIActionPerformed
+
     public void addExistingNetworks()
     {
         //demo networks to add them initially
@@ -536,6 +560,7 @@ public class ControlPanel extends javax.swing.JFrame {
     private javax.swing.JList<String> networksList;
     private javax.swing.JList<String> sensorsList;
     private javax.swing.JTabbedPane sensorsTab;
+    private javax.swing.JButton showGUI;
     private javax.swing.JList<String> stationsList;
     // End of variables declaration//GEN-END:variables
 }
