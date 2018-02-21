@@ -9,13 +9,14 @@ public class SensorHandler {
     private long pulse;
     private long lastTime;
     private final long DEFAULT_PULSE;
-    private int Id;
+    private String Id;
     
-    public SensorHandler(Sensor sensor) {
+    public SensorHandler(Sensor sensor, String IdIn) {
         DEFAULT_PULSE = 1000;
         lastTime = System.currentTimeMillis();
         pulse = DEFAULT_PULSE;
         this.sensor = sensor;
+        this.Id=IdIn;
     }
     
     public void addListener(SensorChangeListener listener) {
@@ -48,12 +49,8 @@ public class SensorHandler {
         Reading reading = getLastReading();
         listener.Trigger(reading); // If you get an error here, you've not set the listener.
     }
-
-    void SetId(int i) {
-        Id = i;
-    }
     
-    int getId()
+    String getId()
     {
         return this.Id;
     }

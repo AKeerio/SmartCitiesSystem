@@ -14,14 +14,14 @@ import javax.swing.JOptionPane;
  */
 public class ControlPanel extends javax.swing.JFrame {
 
-    private SmartCity smartCity = new SmartCity();    
+    private final SmartCity smartCity = new SmartCity();    
     private SensorNetwork[] networks = smartCity.getAllNetworks();
     private SensorStation[] stations;
     private SensorHandler[] sensors;
     
-    private DefaultListModel networksModel=new DefaultListModel();
-    private DefaultListModel stationsModel=new DefaultListModel();
-    private DefaultListModel sensorsModel=new DefaultListModel();
+    private final DefaultListModel networksModel=new DefaultListModel();
+    private final DefaultListModel stationsModel=new DefaultListModel();
+    private final DefaultListModel sensorsModel=new DefaultListModel();
     /**
      * Creates new form ControlPanel
      */
@@ -294,16 +294,16 @@ public class ControlPanel extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(netWorksPane, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(13, 13, 13)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(addNetwork)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(deleteNetwork))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(addStation)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(deleteStation)))
+                        .addComponent(deleteStation))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(addNetwork, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(11, 11, 11)
+                        .addComponent(deleteNetwork)))
                 .addGap(23, 23, 23))
         );
 
@@ -321,7 +321,8 @@ public class ControlPanel extends javax.swing.JFrame {
     }//GEN-LAST:event_addUserActionPerformed
 
     private void addNetworkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNetworkActionPerformed
-        smartCity.addNewNetwork();
+        String Id = JOptionPane.showInputDialog("Input a name of the network");
+        smartCity.addNewNetwork(Id);
         networks = smartCity.getAllNetworks();
         networksModel.addElement(""+networks[smartCity.getNetworksCount()-1].getId());
         networksList.setModel(networksModel);
@@ -330,13 +331,11 @@ public class ControlPanel extends javax.swing.JFrame {
 
     private void networksListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_networksListValueChanged
       
-       
         if(networksList.getSelectedValue()!=null)
         {
             stationsModel.removeAllElements();
             int index = networksList.getSelectedIndex();
-            SensorStation[] stations = networks[index].getAllStations();
-            //JOptionPane.showMessageDialog(null, index + " \t " + smartCity.getNetworksCount());
+            stations = networks[index].getAllStations();
             
             for (int i=0;i<networks[index].getStationsCount(); i++)
             {
@@ -347,12 +346,12 @@ public class ControlPanel extends javax.swing.JFrame {
     }//GEN-LAST:event_networksListValueChanged
 
     private void addStationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addStationActionPerformed
-        
+        String Id = JOptionPane.showInputDialog("Input a name for the station");
         
         if(networksList.getSelectedValue()!=null)
         {
             int index = networksList.getSelectedIndex();
-            networks[index].addNewStation();
+            networks[index].addNewStation(Id);
             stations = networks[index].getAllStations();
             stationsModel.addElement(""+stations[networks[index].getStationsCount()-1].getId());
             stationsList.setModel(stationsModel);            
@@ -371,6 +370,10 @@ public class ControlPanel extends javax.swing.JFrame {
                 networksModel.remove(networksList.getSelectedIndex());
                 networksList.setModel(networksModel);
                 networks=smartCity.getAllNetworks();
+                
+                //update other lists
+                clearStationsList();                
+                clearSensorsList();
             }
         }
     }//GEN-LAST:event_deleteNetworkActionPerformed
@@ -385,31 +388,43 @@ public class ControlPanel extends javax.swing.JFrame {
                 networks[networkIndex].deleteStation(stations[index]);
                 stationsModel.remove(stationsList.getSelectedIndex());
                 stationsList.setModel(stationsModel);
+                
+                //Update other lists 
+                clearSensorsList();
             }
         }
       
     }//GEN-LAST:event_deleteStationActionPerformed
-
+    private void clearStationsList()
+    {
+        stationsModel.removeAllElements();
+        stationsList.setModel(stationsModel);
+    }
+    private void clearSensorsList()
+    {         
+        stationsModel.removeAllElements();
+        stationsList.setModel(stationsModel);
+        sensorsModel.removeAllElements();
+        sensorsList.setModel(sensorsModel);
+    }
     private void addSensorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addSensorActionPerformed
-        
+
         String location = JOptionPane.showInputDialog("Input a location for the sensor");
         String Id = JOptionPane.showInputDialog("Input a Id for the sensor");
-  //      String  Id = JOptionPane.showInputDialog("Input an id for the sensor");
   
         Sensor sensor =new Sensor(location);
-        SensorHandler sensorHandler=new SensorHandler(sensor);
-        stationsList.getSelectedValue();
-        int currentNetwork=Integer.parseInt(networksList.getSelectedValue());
-        for (int i = 0; i < networks[currentNetwork].getStationsCount(); i++) {
-            int stationId=Integer.parseInt(stationsList.getSelectedValue());
-            if(stations[i].getId()==stationId)
-            {
-                stations[stationId].addNewSensor(sensorHandler);
-            }
+        SensorHandler sensorHandler=new SensorHandler(sensor, Id);
+        
+         if(stationsList.getSelectedValue()!=null)
+        {
+            int index = stationsList.getSelectedIndex();
+            stations[index].addNewSensor(sensorHandler);
+            sensors = stations[index].getAllSensors();
+           
+            sensorsModel.addElement(sensorHandler.getId()+"");
+            sensorsList.setModel(sensorsModel);//update list            
         }
         
-        sensorsModel.addElement(sensorHandler.getId()+"");
-        sensorsList.setModel(sensorsModel);//update list
     }//GEN-LAST:event_addSensorActionPerformed
 
     private void deleteSensorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteSensorActionPerformed
@@ -450,8 +465,8 @@ public class ControlPanel extends javax.swing.JFrame {
     public void addExistingNetworks()
     {
         //demo networks to add them initially
-        smartCity.addNewNetwork();
-        smartCity.addNewNetwork();
+        smartCity.addNewNetwork("Temp network 2");
+        smartCity.addNewNetwork("Temp network 1");
         networks = smartCity.getAllNetworks();
         for (int i =0; i<smartCity.getNetworksCount();  i++)
         {

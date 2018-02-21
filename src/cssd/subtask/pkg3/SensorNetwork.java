@@ -13,16 +13,14 @@ public class SensorNetwork {
     private SensorStation[] stations;
     private int stationsCount;
     private final int GROW_BY;
-    private int StationsCreated;
-    private int id;
-   
+    private String Id;
     
-    SensorNetwork(int reference)
+    SensorNetwork(String IdIn)
     {
         stationsCount =0;
         GROW_BY=10;
         stations = new SensorStation[GROW_BY];
-        id = reference;
+        Id = IdIn;
     }
     SensorStation[] getAllStations()
     {
@@ -32,23 +30,22 @@ public class SensorNetwork {
     {
         return stationsCount;
     }
-    void addNewStation()
+    void addNewStation(String Id)
     {
         if (stationsCount > 0.9*stations.length)
         {
             resize();
         }
-       SensorStation station = new SensorStation(this.StationsCreated);
+       SensorStation station = new SensorStation(Id);
         stations[stationsCount] = station;
         stationsCount++;
-        StationsCreated++;
     }
     void addNewSensor(SensorStation station, SensorHandler sensor) 
     {
-        int temp = station.getId();
+        String temp = station.getId();
         for (int i =0; i<stationsCount; i++)
         {
-            if (stations[i].getId()==temp)
+            if (stations[i].getId().equals(temp))
             {
              stations[i].addNewSensor(sensor);   
              i=stationsCount;
@@ -58,10 +55,10 @@ public class SensorNetwork {
     
     void addNewActuator(SensorStation station, ActuatorHandler actuator)
     {
-        int temp = station.getId();
+        String temp = station.getId();
         for (int i =0; i<stationsCount; i++)
         {
-            if (stations[i].getId()==temp)
+            if (stations[i].getId().equals(temp))
             {
                 stations[i].addNewActuator(actuator);
                 i=stationsCount;
@@ -73,7 +70,7 @@ public class SensorNetwork {
     {
         for(int i=0; i<stationsCount; i++)
         {
-            if (stations[i].getId() == station.getId())
+            if (stations[i].getId() == null ? station.getId() == null : stations[i].getId().equals(station.getId()))
             {
                 for (int j = i; j<stationsCount-2; j++)
                 {
@@ -88,7 +85,7 @@ public class SensorNetwork {
     {
         for(int i=0; i<stationsCount; i++)
         {
-            if (stations[i].getId() == station.getId())
+            if (stations[i].getId().equals(station.getId()))
             {
                 stations[i].deleteSensor(sensor);
                 i=stationsCount;
@@ -99,7 +96,7 @@ public class SensorNetwork {
     {
         for(int i=0; i<stationsCount; i++)
         {
-            if (stations[i].getId() == station.getId())
+            if (stations[i].getId() == null ? station.getId() == null : stations[i].getId().equals(station.getId()))
             {
                 stations[i].deleteActuator(handles);
                 i=stationsCount;
@@ -113,7 +110,7 @@ public class SensorNetwork {
         stations = temp;
     }    
 
-    int getId() {
-        return id;
+    String getId() {
+        return Id;
     }
 }

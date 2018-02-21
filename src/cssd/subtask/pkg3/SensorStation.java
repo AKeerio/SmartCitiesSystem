@@ -13,16 +13,16 @@ public class SensorStation {
     private int actuatorCount;
     private Pulse pulse;
     private final int CHANGE_BY = 1;
-    private final int id;
+    private String Id;
     
-    public SensorStation(int id) {
+    public SensorStation(String id) {
         sensors = new SensorHandler[0];
         actuators = new ActuatorHandler[0];
         sensorCount = 0;
         sensorCountMax =0;
         actuatorCount = 0;
         metricTypes = new HashMap<>();
-        this.id = id;
+        this.Id = id;
     }
     
     
@@ -104,7 +104,6 @@ public class SensorStation {
             System.arraycopy(sensors, 0, temp, 0, sensorCount);
             sensors = temp;
         }
-        sensor.SetId(sensorCountMax++);
         sensors[sensorCount++] = sensor;
         String metricType = sensor.getLastReading().getMetrics(); // We're simply accessing the reading, not changing it.
         if(!metricTypes.containsKey(metricType)) {
@@ -167,8 +166,8 @@ public class SensorStation {
         actuators[actuatorCount++] = actuator;
     }
 
-   int getId() {
-        return id;
+   String getId() {
+        return Id;
     }
 
     void deleteActuator(ActuatorHandler handles) {

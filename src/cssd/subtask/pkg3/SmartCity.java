@@ -29,33 +29,33 @@ public class SmartCity {
         return networks;
     }
     
-    void addNewNetwork()
+    void addNewNetwork(String Id)
     {
         if (networksCount > 0.9*networks.length)
         {
             resizeNetworks();
         }
-        networks[networksCount] = new SensorNetwork(networksCreated);
+        networks[networksCount] = new SensorNetwork(Id);
         networksCount++;
         this.networksCreated++;
     }
     void addNewStation(SensorNetwork network){
-             int temp = network.getId();
+             String temp = network.getId();
         for (int i =0; i<networksCount; i++)
         {
-            if (networks[i].getId()==temp)
+            if (networks[i].getId().equals(temp))
             {
-                networks[i].addNewStation();
+                networks[i].addNewStation(temp);
                 i=networksCount;
             }
         }
     }
     void addNewSensor(SensorNetwork network, SensorStation station, SensorHandler sensor)
     {
-        int temp = network.getId();
+        String temp = network.getId();
         for (int i =0; i<networksCount; i++)
         {
-            if (networks[i].getId()==temp)
+            if (networks[i].getId().equals(temp))
             {
                 networks[i].addNewSensor(station, sensor);
                 i=networksCount;
@@ -75,10 +75,10 @@ public class SmartCity {
     
     void addNewActuator(SensorNetwork network, SensorStation station, ActuatorHandler handler)
     {
-        int temp = network.getId();
+        String temp = network.getId();
         for (int i =0; i<networksCount; i++)
         {
-            if (networks[i].getId()==temp)
+            if (networks[i].getId().equals(temp))
             {
                 networks[i].addNewActuator(station, handler);
                 i=networksCount;
@@ -90,7 +90,7 @@ public class SmartCity {
     {    
           for(int i=0; i<networksCount; i++)
         {
-            if (networks[i].getId() == network.getId())
+            if (networks[i].getId().equals(network.getId()))
             {
                 for (int j = i; j<networksCount-2; j++)
                 {
@@ -103,10 +103,10 @@ public class SmartCity {
     }
     void deleteStation (SensorNetwork network, SensorStation station)
     {
-        int temp = network.getId();
+        String temp = network.getId();
         for (int i =0; i<networksCount; i++)
         {
-            if (networks[i].getId()==temp)
+            if (networks[i].getId().equals(temp))
             {
                 networks[i].deleteStation(station);
                 i=networksCount;
@@ -116,10 +116,10 @@ public class SmartCity {
     
     void deleteSensor (SensorNetwork network, SensorStation station, SensorHandler sensor)
     {
-        int temp = network.getId();
+        String temp = network.getId();
         for (int i =0; i<networksCount; i++)
         {
-            if (networks[i].getId()==temp)
+            if (networks[i].getId().equals(temp))
             {
                 networks[i].deleteSensor(station, sensor);
                 i=networksCount;
@@ -144,10 +144,10 @@ public class SmartCity {
     }
     void deleteActuator (SensorNetwork network, SensorStation station, ActuatorHandler handler)
     {
-        int temp = network.getId();
+        String temp = network.getId();
         for (int i =0; i<networksCount; i++)
         {
-            if (networks[i].getId()==temp)
+            if (networks[i].getId().equals(temp))
             {
                 networks[i].deleteActuator(station, handler);
                 i=networksCount;
