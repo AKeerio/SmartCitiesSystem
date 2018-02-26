@@ -70,7 +70,7 @@ public class SensorNetwork {
     {
         for(int i=0; i<stationsCount; i++)
         {
-            if (stations[i].getId() == null ? station.getId() == null : stations[i].getId().equals(station.getId()))
+            if (stations[i].getId().equals(station.getId()))
             {
                 for (int j = i; j<stationsCount-2; j++)
                 {

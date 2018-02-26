@@ -5,6 +5,7 @@
  */
 package cssd.subtask.pkg3;
 
+import static java.lang.Float.parseFloat;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
@@ -18,10 +19,14 @@ public class ControlPanel extends javax.swing.JFrame {
     private SensorNetwork[] networks = smartCity.getAllNetworks();
     private SensorStation[] stations;
     private SensorHandler[] sensors;
+     private ActuatorHandler[] actuators;
+    private Rule[] rules;
     
     private final DefaultListModel networksModel=new DefaultListModel();
     private final DefaultListModel stationsModel=new DefaultListModel();
     private final DefaultListModel sensorsModel=new DefaultListModel();
+    private final DefaultListModel actuatorsModel=new DefaultListModel();
+    private final DefaultListModel rulesModel = new DefaultListModel();
     /**
      * Creates new form ControlPanel
      */
@@ -50,20 +55,21 @@ public class ControlPanel extends javax.swing.JFrame {
         networksList = new javax.swing.JList<>();
         jScrollPane3 = new javax.swing.JScrollPane();
         stationsList = new javax.swing.JList<>();
-        sensorsTab = new javax.swing.JTabbedPane();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         sensorsList = new javax.swing.JList<>();
         addSensor = new javax.swing.JButton();
         deleteSensor = new javax.swing.JButton();
-        jPanel3 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jScrollPane5 = new javax.swing.JScrollPane();
+        addRule = new javax.swing.JButton();
         addActuator = new javax.swing.JButton();
+        deleteRule = new javax.swing.JButton();
         deleteActuator = new javax.swing.JButton();
-        jScrollPane6 = new javax.swing.JScrollPane();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        actuatorsList = new javax.swing.JList<>();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        rulesList = new javax.swing.JList<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -114,11 +120,6 @@ public class ControlPanel extends javax.swing.JFrame {
             }
         });
 
-        networksList.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         networksList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
                 networksListValueChanged(evt);
@@ -149,99 +150,105 @@ public class ControlPanel extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 174, Short.MAX_VALUE)
-        );
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(addSensor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(deleteSensor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addGap(169, 169, 169)
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(addSensor)
+                    .addComponent(deleteSensor, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(178, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(addSensor)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(deleteSensor)
-                .addGap(10, 10, 10))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        sensorsTab.addTab("Sensors", jPanel1);
+        jTabbedPane1.addTab("Station Sensors", jPanel1);
+
+        addRule.setText("Add Rule");
+        addRule.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addRuleActionPerformed(evt);
+            }
+        });
 
         addActuator.setText("Add New Actuator");
+        addActuator.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addActuatorActionPerformed(evt);
+            }
+        });
+
+        deleteRule.setText("Delete Rule");
+        deleteRule.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteRuleActionPerformed(evt);
+            }
+        });
 
         deleteActuator.setText("Delete Actuator");
+        deleteActuator.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteActuatorActionPerformed(evt);
+            }
+        });
 
-        jButton1.setText("jButton1");
+        actuatorsList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                actuatorsListValueChanged(evt);
+            }
+        });
+        jScrollPane1.setViewportView(actuatorsList);
 
-        jButton2.setText("jButton2");
+        jScrollPane2.setViewportView(rulesList);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(addActuator, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(deleteActuator, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(deleteActuator, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(addActuator))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(41, 41, 41))
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel2Layout.createSequentialGroup()
-                    .addGap(14, 14, 14)
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(178, Short.MAX_VALUE)))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(addRule, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(deleteRule, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(addActuator)
-                    .addComponent(jButton1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(addRule))
+                .addGap(11, 11, 11)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(deleteActuator)
-                    .addComponent(jButton2))
+                    .addComponent(deleteRule))
                 .addContainerGap())
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel2Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(77, Short.MAX_VALUE)))
         );
 
-        sensorsTab.addTab("Actuator and rules", jPanel2);
+        jTabbedPane1.addTab("Station Actuator and Rules", jPanel2);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -249,62 +256,57 @@ public class ControlPanel extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(30, 30, 30)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(deleteNetwork, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(netWorksPane, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(addNetwork, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(addStation, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(deleteStation, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(deleteUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(addUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(149, 149, 149)
-                        .addComponent(controlPanelLabel)
-                        .addContainerGap(318, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(netWorksPane)
-                            .addComponent(deleteNetwork, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(addNetwork, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(29, 29, 29)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGap(1, 1, 1)
-                                    .addComponent(deleteStation, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addComponent(addStation))
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(37, 37, 37)
-                        .addComponent(sensorsTab, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(163, 163, 163))))
+                            .addComponent(addUser, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE))
+                        .addGap(137, 137, 137)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(controlPanelLabel)
+                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(36, 36, 36))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addComponent(controlPanelLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
+                        .addGap(25, 25, 25)
                         .addComponent(addUser)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(deleteUser)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(sensorsTab)
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(deleteUser))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(controlPanelLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(netWorksPane, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(addStation)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(deleteStation))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(addNetwork, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(40, 40, 40)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(netWorksPane, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(addNetwork, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(addStation))
                         .addGap(11, 11, 11)
-                        .addComponent(deleteNetwork)))
-                .addGap(23, 23, 23))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(deleteNetwork)
+                            .addComponent(deleteStation)))
+                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(35, 35, 35))
         );
 
         pack();
@@ -333,6 +335,7 @@ public class ControlPanel extends javax.swing.JFrame {
       
         if(networksList.getSelectedValue()!=null)
         {
+            clearStationsList();
             stationsModel.removeAllElements();
             int index = networksList.getSelectedIndex();
             stations = networks[index].getAllStations();
@@ -372,8 +375,7 @@ public class ControlPanel extends javax.swing.JFrame {
                 networks=smartCity.getAllNetworks();
                 
                 //update other lists
-                clearStationsList();                
-                clearSensorsList();
+                clearStationsList();
             }
         }
     }//GEN-LAST:event_deleteNetworkActionPerformed
@@ -391,21 +393,37 @@ public class ControlPanel extends javax.swing.JFrame {
                 
                 //Update other lists 
                 clearSensorsList();
+                clearActuatorsList();
             }
         }
       
     }//GEN-LAST:event_deleteStationActionPerformed
+   
     private void clearStationsList()
     {
+        clearSensorsList();
+        clearRulesList();
+        clearActuatorsList();
         stationsModel.removeAllElements();
         stationsList.setModel(stationsModel);
     }
     private void clearSensorsList()
     {         
-        stationsModel.removeAllElements();
-        stationsList.setModel(stationsModel);
         sensorsModel.removeAllElements();
         sensorsList.setModel(sensorsModel);
+    }
+    private void clearActuatorsList()
+    {
+        clearRulesList();
+        actuatorsModel.removeAllElements();
+        actuatorsList.setModel(rulesModel);
+    }
+    
+    private void clearRulesList()
+    {
+       rulesModel.removeAllElements();;
+       rulesList.setModel(rulesModel);
+               
     }
     private void addSensorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addSensorActionPerformed
 
@@ -448,25 +466,112 @@ public class ControlPanel extends javax.swing.JFrame {
         if(stationsList.getSelectedValue()!=null)
         {
             sensorsModel.removeAllElements();
-            int index = stationsList.getSelectedIndex();
-            sensors = stations[index].getAllSensors();//needs to be implemented
-            //JOptionPane.showMessageDialog(null, index + " \t " + smartCity.getNetworksCount());
+            actuatorsModel.removeAllElements();
+            rulesModel.removeAllElements();
             
-            for (int i=0;i<stations[index].getSensorCount(); i++)
+            int stationIndex = stationsList.getSelectedIndex();
+            sensors = stations[stationIndex].getAllSensors();
+            actuators=stations[stationIndex].getAllActuators();
+            
+            
+            for (int i=0;i<stations[stationIndex].getSensorCount(); i++)
             {
                 sensorsModel.addElement(""+sensors[i].getId());                  
             }
+            for (int i=0;i<stations[stationIndex].getActuatorsCount(); i++)
+            {
+                actuatorsModel.addElement(""+actuators[i].getId());                  
+            }
+              
             sensorsList.setModel(sensorsModel);
+            actuatorsList.setModel(actuatorsModel);
+            rulesList.setModel(rulesModel);
         }
       
-      //code here to actaully delete sensors from backend
     }//GEN-LAST:event_stationsListValueChanged
+
+    private void addActuatorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addActuatorActionPerformed
+        String Id = JOptionPane.showInputDialog("Input a Id for the actuator");
+        ActuatorHandler actuatorHandler=new ActuatorHandler(Id);
+        
+         if(stationsList.getSelectedValue()!=null)
+        {
+            int index = stationsList.getSelectedIndex();
+            stations[index].addNewActuator(actuatorHandler);
+            actuators = stations[index].getAllActuators();
+           
+            actuatorsModel.addElement(actuatorHandler.getId()+"");
+            actuatorsList.setModel(actuatorsModel);//update list            
+        }
+    }//GEN-LAST:event_addActuatorActionPerformed
+
+    private void deleteActuatorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActuatorActionPerformed
+        int reply = JOptionPane.showConfirmDialog(this, "Do you want to delete this actuator?", "Delete Actuator", JOptionPane.YES_NO_OPTION);
+        if (reply == JOptionPane.YES_OPTION) {
+            int stationIndex=stationsList.getSelectedIndex();
+            if(actuatorsList.getSelectedValue()!=null)
+            {
+                int index = actuatorsList.getSelectedIndex();
+                stations[stationIndex].deleteActuator(actuators[index]);
+                actuatorsModel.remove(actuatorsList.getSelectedIndex());
+                actuatorsList.setModel(actuatorsModel);
+                
+                rulesModel.removeAllElements();
+                rulesList.setModel(rulesModel);
+            }
+        }
+    }//GEN-LAST:event_deleteActuatorActionPerformed
+
+    private void addRuleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addRuleActionPerformed
+        float min = parseFloat(JOptionPane.showInputDialog("Input a min for the rule"));
+        float max = parseFloat(JOptionPane.showInputDialog("Input a max for the rule"));
+        String metric = JOptionPane.showInputDialog("Input a metric for the rule");
+        Rule rule=new Rule(min,max,metric);
+        
+        if(actuatorsList.getSelectedValue()!=null)
+        {
+            int index = actuatorsList.getSelectedIndex();
+            actuators[index].addNewRule(rule);
+            rules = actuators[index].getAllRules();
+            rulesModel.addElement(rule.getRuleData());
+            rulesList.setModel(rulesModel);//update list            
+        }
+    }//GEN-LAST:event_addRuleActionPerformed
+
+    private void deleteRuleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteRuleActionPerformed
+        int reply = JOptionPane.showConfirmDialog(this, "Do you want to delete this rule?", "Delete rule", JOptionPane.YES_NO_OPTION);
+        if (reply == JOptionPane.YES_OPTION) {
+            int actuatorsIndex=actuatorsList.getSelectedIndex();
+            int stationIndex=stationsList.getSelectedIndex();
+            if(rulesList.getSelectedValue()!=null)
+            {
+                int index = rulesList.getSelectedIndex();
+                actuators[actuatorsIndex].deleteRule(rules[index], stations[stationIndex]);
+                rulesModel.remove(rulesList.getSelectedIndex());
+                rulesList.setModel(rulesModel);
+            }
+        }
+    }//GEN-LAST:event_deleteRuleActionPerformed
+
+    private void actuatorsListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_actuatorsListValueChanged
+       if(actuatorsList.getSelectedValue()!=null)
+        {
+            rulesModel.removeAllElements();
+            int index = actuatorsList.getSelectedIndex();
+            rules = actuators[index].getAllRules();
+            for (int i=0;i<actuators[index].getRuleCount(); i++)
+            {
+                rulesModel.addElement(""+rules[i].getRuleData());                  
+            }
+            rulesList.setModel(rulesModel);
+        }
+    }//GEN-LAST:event_actuatorsListValueChanged
 
     public void addExistingNetworks()
     {
         //demo networks to add them initially
-        smartCity.addNewNetwork("Temp network 2");
         smartCity.addNewNetwork("Temp network 1");
+        smartCity.addNewNetwork("Temp network 2");
         networks = smartCity.getAllNetworks();
         for (int i =0; i<smartCity.getNetworksCount();  i++)
         {
@@ -512,30 +617,31 @@ public class ControlPanel extends javax.swing.JFrame {
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JList<String> actuatorsList;
     private javax.swing.JButton addActuator;
     private javax.swing.JButton addNetwork;
+    private javax.swing.JButton addRule;
     private javax.swing.JButton addSensor;
     private javax.swing.JButton addStation;
     private javax.swing.JButton addUser;
     private javax.swing.JLabel controlPanelLabel;
     private javax.swing.JButton deleteActuator;
     private javax.swing.JButton deleteNetwork;
+    private javax.swing.JButton deleteRule;
     private javax.swing.JButton deleteSensor;
     private javax.swing.JButton deleteStation;
     private javax.swing.JButton deleteUser;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JScrollPane netWorksPane;
     private javax.swing.JList<String> networksList;
+    private javax.swing.JList<String> rulesList;
     private javax.swing.JList<String> sensorsList;
-    private javax.swing.JTabbedPane sensorsTab;
     private javax.swing.JList<String> stationsList;
     // End of variables declaration//GEN-END:variables
 }

@@ -9,8 +9,8 @@ public class SensorStation {
     private ActuatorHandler[] actuators;
     private final HashMap<String, Integer> metricTypes; // Used to speed up collection of data.
     private int sensorCount;
-    private int sensorCountMax;
     private int actuatorCount;
+    
     private Pulse pulse;
     private final int CHANGE_BY = 1;
     private String Id;
@@ -18,9 +18,10 @@ public class SensorStation {
     public SensorStation(String id) {
         sensors = new SensorHandler[0];
         actuators = new ActuatorHandler[0];
+        
         sensorCount = 0;
-        sensorCountMax =0;
         actuatorCount = 0;
+        
         metricTypes = new HashMap<>();
         this.Id = id;
     }
@@ -187,8 +188,31 @@ public class SensorStation {
     }
 
     void deleteRule(Rule rule, ActuatorHandler actuator) {
+        Rule[] rules=actuator.getAllRules();
+        int rulesCount=actuator.getRuleCount();
+        for (int i = 0; i < rulesCount; i++) {
+            String currRule="Min: "+rules[i].min+" Max: "+rules[i].max+" Metric: "+rules[i].metric;
+            if(currRule.equals(rule.getRuleData()))
+            {
+                for(int j = i; j < rulesCount - 1; ++j) {
+                    rules[j] = rules[j + 1];
+                }
+            }
+        }        
+        rulesCount--;
+        actuator.setRulesCount(rulesCount);
+        
+        //update the actuator in the current array of actuators
         for (int i = 0; i < actuatorCount; i++) {
-            if(actuators[i]==actuator)
+            if(actuators[i].getId().equals(actuator.getId()))
+            {
+                actuators[i]=actuator;
+            }
+        }
+        /* 
+        //We might need to delete this code but I ma keeping it just incase we need it
+        for (int i = 0; i < actuatorCount; i++) {
+            if(actuators[i].getId().equals(actuator.getId()))
             {
                 Rule[] rules= actuators[i].getRules();//did this to avoid creating global variables
                 int rulesCount=actuators[i].getRulesCount();
@@ -208,7 +232,7 @@ public class SensorStation {
                 break;
             }
         }
-        
+        */
     }
     
     void addRule(Float max, Float min, String Metric, ActuatorHandler actuator) {
@@ -233,9 +257,16 @@ public class SensorStation {
         return this.sensors;
     }
     
+    public ActuatorHandler[] getAllActuators()
+    {
+        return this.actuators;
+    }
     int getSensorCount()
     {
         return this.sensorCount;
     }
 
+    int getActuatorsCount() {
+        return this.actuatorCount;
+    }
 }

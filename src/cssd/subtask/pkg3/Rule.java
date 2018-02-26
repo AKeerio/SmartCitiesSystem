@@ -13,12 +13,12 @@ public class Rule {
     
     Float min;
     Float max;
-    String Metric;
+    String metric;
     
     public Rule(Float minIn, Float maxIn, String MetricIn){
         min=minIn;
         max=maxIn;
-        Metric=MetricIn;
+        metric=MetricIn;
     }
     public boolean checkRule(AverageReading reading)
     {
@@ -38,5 +38,9 @@ public class Rule {
                 return false;
         }
         return false;
+    }
+
+    String getRuleData() {
+        return "Min: "+this.min+" Max: "+this.max+" Metric: "+this.metric;
     }
 }
