@@ -17,6 +17,12 @@ public class Gui extends javax.swing.JFrame {
      */
     public Gui() {
         initComponents();
+        // In real life we would have this as either a vector or have automatic expansions, but this is only a prototype.
+        cssd.subtask.pkg3.User[] setOfUsers = new User[10];
+        setOfUsers[0]= new Admin (618, "Christopher Franklin", "d0nk3y", true);
+        setOfUsers[1]= new Admin (436, "Aijaz", "c@t", false);
+        setOfUsers[2]= new User (326, "Christopher Beattie", "m0nk3y");
+        setOfUsers[3]= new User (326, "Louis ", "m0nk3y");
     }
 
     /**
@@ -37,6 +43,12 @@ public class Gui extends javax.swing.JFrame {
         passwordLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        username.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                usernameActionPerformed(evt);
+            }
+        });
 
         loginButton.setText("Login");
         loginButton.addActionListener(new java.awt.event.ActionListener() {
@@ -115,11 +127,20 @@ public class Gui extends javax.swing.JFrame {
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
         // TODO add your handling code here:
-        this.setVisible(false);
-        ControlPanel cp= new ControlPanel();
-        cp.addExistingNetworks();             
-        cp.setVisible(true);
+        if (passwordLabel!=null && usernameLabel != null)
+        {
+            
+            this.setVisible(false);
+            ControlPanel cp= new ControlPanel();
+            cp.addExistingNetworks();             
+            cp.setVisible(true);
+        }
+    
     }//GEN-LAST:event_loginButtonActionPerformed
+
+    private void usernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_usernameActionPerformed
 
     /**
      * @param args the command line arguments
