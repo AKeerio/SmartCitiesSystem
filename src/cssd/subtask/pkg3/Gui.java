@@ -16,13 +16,14 @@ public class Gui extends javax.swing.JFrame {
      * Creates new form Gui
      */
     public Gui() {
+        
         initComponents();
         // In real life we would have this as either a vector or have automatic expansions, but this is only a prototype.
         cssd.subtask.pkg3.User[] setOfUsers = new User[10];
-        setOfUsers[0]= new Admin (618, "Christopher Franklin", "d0nk3y", true);
+        /*setOfUsers[0]= new Admin (618, "Christopher Franklin", "d0nk3y", true);
         setOfUsers[1]= new Admin (436, "Aijaz", "c@t", false);
         setOfUsers[2]= new User (326, "Christopher Beattie", "m0nk3y");
-        setOfUsers[3]= new User (326, "Louis ", "m0nk3y");
+        setOfUsers[3]= new User (326, "Louis ", "m0nk3y");*/
     }
 
     /**

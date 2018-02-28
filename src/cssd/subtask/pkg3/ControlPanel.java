@@ -70,6 +70,7 @@ public class ControlPanel extends javax.swing.JFrame {
         actuatorsList = new javax.swing.JList<>();
         jScrollPane2 = new javax.swing.JScrollPane();
         rulesList = new javax.swing.JList<>();
+        showGUIData = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -250,6 +251,14 @@ public class ControlPanel extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Station Actuator and Rules", jPanel2);
 
+        showGUIData.setText("Show GUI");
+        showGUIData.setToolTipText("");
+        showGUIData.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showGUIDataActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -274,9 +283,12 @@ public class ControlPanel extends javax.swing.JFrame {
                         .addGap(137, 137, 137)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(controlPanelLabel)
-                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(36, 36, 36))
+                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(controlPanelLabel)
+                        .addGap(18, 18, 18)
+                        .addComponent(showGUIData)))
+                .addGap(26, 26, 26))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -289,7 +301,9 @@ public class ControlPanel extends javax.swing.JFrame {
                         .addComponent(deleteUser))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(controlPanelLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(showGUIData)
+                            .addComponent(controlPanelLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -567,6 +581,15 @@ public class ControlPanel extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_actuatorsListValueChanged
 
+    private void showGUIDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showGUIDataActionPerformed
+        // TODO add your handling code here:
+        // TODO add your handling code here:
+        this.setVisible(false);
+        GUIData gui= new GUIData();
+        gui.setSmartCity(this.smartCity);
+        gui.setVisible(true);
+    }//GEN-LAST:event_showGUIDataActionPerformed
+
     public void addExistingNetworks()
     {
         //demo networks to add them initially
@@ -578,6 +601,10 @@ public class ControlPanel extends javax.swing.JFrame {
             networksModel.addElement(""+networks[i].getId());
         }
         networksList.setModel(networksModel);
+    }
+    
+    public SmartCity getSmartCity (){
+            return smartCity;
     }
     /**
      * @param args the command line arguments
@@ -642,6 +669,7 @@ public class ControlPanel extends javax.swing.JFrame {
     private javax.swing.JList<String> networksList;
     private javax.swing.JList<String> rulesList;
     private javax.swing.JList<String> sensorsList;
+    private javax.swing.JButton showGUIData;
     private javax.swing.JList<String> stationsList;
     // End of variables declaration//GEN-END:variables
 }
