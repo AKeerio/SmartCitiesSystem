@@ -1,5 +1,7 @@
 package cssd.subtask.pkg3;
 
+import javax.swing.JOptionPane;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -20,10 +22,7 @@ public class Gui extends javax.swing.JFrame {
         initComponents();
         // In real life we would have this as either a vector or have automatic expansions, but this is only a prototype.
         cssd.subtask.pkg3.User[] setOfUsers = new User[10];
-        /*setOfUsers[0]= new Admin (618, "Christopher Franklin", "d0nk3y", true);
-        setOfUsers[1]= new Admin (436, "Aijaz", "c@t", false);
-        setOfUsers[2]= new User (326, "Christopher Beattie", "m0nk3y");
-        setOfUsers[3]= new User (326, "Louis ", "m0nk3y");*/
+        
     }
 
     /**
@@ -36,7 +35,7 @@ public class Gui extends javax.swing.JFrame {
     private void initComponents() {
 
         loginPanel = new javax.swing.JPanel();
-        username = new javax.swing.JTextField();
+        Username = new javax.swing.JTextField();
         password = new javax.swing.JTextField();
         loginButton = new javax.swing.JButton();
         loginLabel = new javax.swing.JLabel();
@@ -45,9 +44,9 @@ public class Gui extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        username.addActionListener(new java.awt.event.ActionListener() {
+        Username.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                usernameActionPerformed(evt);
+                UsernameActionPerformed(evt);
             }
         });
 
@@ -79,7 +78,7 @@ public class Gui extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(username, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(Username, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(50, 50, 50))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, loginPanelLayout.createSequentialGroup()
                         .addComponent(loginButton)
@@ -96,7 +95,7 @@ public class Gui extends javax.swing.JFrame {
                 .addComponent(loginLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addGroup(loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(username, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Username, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(usernameLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -128,20 +127,26 @@ public class Gui extends javax.swing.JFrame {
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
         // TODO add your handling code here:
-        if (passwordLabel!=null && usernameLabel != null)
+        if (Username.getText().compareTo("")!=0&&password.getText().compareTo("")!=0)
         {
-            
-            this.setVisible(false);
             ControlPanel cp= new ControlPanel();
-            cp.addExistingNetworks();             
-            cp.setVisible(true);
+            boolean temp = cp.logOn(this.Username.getText(), this.password.getText());
+            if (temp==true)
+            {
+                this.setVisible(false);
+                cp.addExistingNetworks();             
+                cp.setVisible(true);
+            }
+            else
+                JOptionPane.showMessageDialog(new JOptionPane(), "Incorrect log in, please try again");
         }
+        else JOptionPane.showMessageDialog(new JOptionPane(), "Please enter details");
     
     }//GEN-LAST:event_loginButtonActionPerformed
 
-    private void usernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameActionPerformed
+    private void UsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsernameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_usernameActionPerformed
+    }//GEN-LAST:event_UsernameActionPerformed
 
     /**
      * @param args the command line arguments
@@ -181,12 +186,12 @@ public class Gui extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField Username;
     private javax.swing.JButton loginButton;
     private javax.swing.JLabel loginLabel;
     private javax.swing.JPanel loginPanel;
     private javax.swing.JTextField password;
     private javax.swing.JLabel passwordLabel;
-    private javax.swing.JTextField username;
     private javax.swing.JLabel usernameLabel;
     // End of variables declaration//GEN-END:variables
 }

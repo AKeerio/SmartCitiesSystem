@@ -19,6 +19,7 @@ import javax.swing.JTextField;
 public class ControlPanel extends javax.swing.JFrame {
 
     private static final DateTimeFormatter DTF = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+
     LocalDateTime now;
 
     private final SmartCity smartCity = new SmartCity();
@@ -27,6 +28,7 @@ public class ControlPanel extends javax.swing.JFrame {
     private SensorHandler[] sensors;
     private ActuatorHandler[] actuators;
     private Rule[] rules;
+    private User user;
 
     private final DefaultListModel networksModel = new DefaultListModel();
     private final DefaultListModel stationsModel = new DefaultListModel();
@@ -39,6 +41,16 @@ public class ControlPanel extends javax.swing.JFrame {
      */
     public ControlPanel() {
         initComponents();
+    }
+    boolean logOn(String name, String password) 
+    {
+       User temp =  smartCity.login(name, password);
+       if (temp != null)
+       {
+           user=temp;
+           return true;
+       }
+       return false;
     }
 
     /**

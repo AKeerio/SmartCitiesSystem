@@ -16,12 +16,18 @@ public class SmartCity {
     private SensorNetwork[] networks;
     private int networksCount = 0;
     private int networksCreated =0;
-    private int usersCount =0;
-    private User[] users;
+    private int usersCount =2;
+    private User[] users= new User[10];
+    
     SmartCity()
     {
         GROW_BY = 10;
         networks = new SensorNetwork[GROW_BY];
+        users[0]= new Admin (618, "Christopher Franklin", "d0nk3y", true);
+        users[1]= new Admin (436, "Aijaz", "c@t", false);
+        users[0]= new User (326, "Christopher Beattie", "m0nk3y");
+        users[1]= new User (326, "Louis", "m0nk3y");
+        usersCount = 2;
     }
     
     SensorNetwork[] getAllNetworks()
@@ -171,4 +177,16 @@ public class SmartCity {
         users=temp;
     }
     
+    User login(String name, String password)
+    {
+        int i=0;
+        boolean found=false;
+        while(i<this.usersCount)
+        {
+            if (users[i].logIn(name, password)==true)
+                return users[i];
+            else i++;
+        }
+        return null;
+    }
 }

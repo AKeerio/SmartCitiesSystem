@@ -5,12 +5,20 @@
  */
 package cssd.subtask.pkg3;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author b4014007
  */
 public class GUIData extends javax.swing.JFrame {
-    SmartCity smartCity;
+     SmartCity smartCity;
+
+    public void setSmartCity(SmartCity smartCity1) {
+    {
+     smartCity = smartCity1;   
+    }
+    }
     /**
      * Creates new form GUIData
      */
@@ -130,13 +138,12 @@ public class GUIData extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new GUIData().setVisible(true);
+                
             }
         });
     }
     
-    public void setSmartCity(SmartCity smartCity1){
-     smartCity = smartCity1;   
-    }
+  
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JList<String> jList1;
