@@ -9,7 +9,7 @@ public class SensorChangeListener {
     }
    
     public void Trigger(Reading reading) {
-        hook.addData();
+        hook.addData(reading);
     }
     
 }

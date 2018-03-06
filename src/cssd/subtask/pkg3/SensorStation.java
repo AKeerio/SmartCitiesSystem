@@ -7,41 +7,32 @@ public class SensorStation {
     
     private SensorHandler[] sensors;
     private ActuatorHandler[] actuators;
+    private Reading[] accumulatedData;
     private final HashMap<String, Integer> metricTypes; // Used to speed up collection of data.
     private int sensorCount;
     private int actuatorCount;
-    
     private Pulse pulse;
     private final int CHANGE_BY = 1;
-    private String Id;
+    private final String id;
     
     public SensorStation(String id) {
         sensors = new SensorHandler[0];
         actuators = new ActuatorHandler[0];
-        
+        accumulatedData = new Reading[0];
         sensorCount = 0;
         actuatorCount = 0;
-        
         metricTypes = new HashMap<>();
-        this.Id = id;
+        this.id = id;
     }
     
     
     /**
      * Returns an array of Reading objects containing the last known readings for
-     * each sensor managed by this sensor station.
+     * each sensor managed by this sensor station. Some indices in the array may be null.
      * @return Returns an array of Reading objects, or null if no sensors are connected.
      */
     public Reading[] collectIndividualSensorData() {
-        if(sensors.length > 0)
-        {
-            Reading[] readings = new Reading[sensors.length];
-            for(int i = 0; i < sensors.length; ++i) {
-                readings[i] = sensors[i].getLastReading();
-            }
-            return readings;
-        }
-        return null;
+        return accumulatedData.length > 0 ? accumulatedData : null;
     }
     
     /**
@@ -51,13 +42,13 @@ public class SensorStation {
      * @return Returns an array of AverageReading objects, or null if there are no sensors connected.
      */
     public AverageReading[] getAllAverageData() {
-        if(sensors.length > 0)
+        if(accumulatedData.length > 0)
         {
             AverageReading[] avgReadings = new AverageReading[metricTypes.size()];
             int[] hits = new int[metricTypes.size()];
             metricTypes.forEach((k,v) -> (avgReadings[(int)v] = new AverageReading()).setMetric((String)k)); // Initialise the avgReadings array.
-            for(int i = 0; i < sensors.length; ++i) {
-                Reading reading = sensors[i].getLastReading();
+            for(int i = 0; i < accumulatedData.length; ++i) {
+                Reading reading = accumulatedData[i];
                 int index = (int)metricTypes.get(reading.getMetrics());
                 avgReadings[index].incValue(reading.getValue());
                 hits[index]++;
@@ -77,13 +68,15 @@ public class SensorStation {
      * @return An array of Reading objects, or null if there are no sensors connected.
      */
     public AverageReading[] accumulateTotalPerMetric() {
-        if(sensors.length > 0)
+        if(accumulatedData.length > 0)
         {
             AverageReading[] readings = new AverageReading[metricTypes.size()];
             metricTypes.forEach((k,v) -> (readings[(int)v] = new AverageReading()).setMetric((String)k));
-            for(int i = 0; i < sensors.length; ++i) {
-                Reading reading = sensors[i].getLastReading();
-                readings[(int)metricTypes.get(reading.getMetrics())].incValue(reading.getValue());
+            for(int i = 0; i < accumulatedData.length; ++i) {
+                Reading reading = accumulatedData[i];
+                if(reading != null) {
+                    readings[(int)metricTypes.get(reading.getMetrics())].incValue(reading.getValue());
+                }
             }
             return readings;
         }
@@ -102,8 +95,11 @@ public class SensorStation {
         if(sensorCount >= sensors.length) {
             int newLength = sensors.length + CHANGE_BY;
             SensorHandler[] temp = new SensorHandler[newLength];
+            Reading[] rTemp = new Reading[newLength];
             System.arraycopy(sensors, 0, temp, 0, sensorCount);
+            System.arraycopy(accumulatedData, 0, rTemp, 0, sensorCount);
             sensors = temp;
+            accumulatedData = rTemp;
         }
         sensors[sensorCount++] = sensor;
         String metricType = sensor.getLastReading().getMetrics(); // We're simply accessing the reading, not changing it.
@@ -134,8 +130,11 @@ public class SensorStation {
         if(sensors.length - --sensorCount >= CHANGE_BY) {
             int newLength = sensors.length - CHANGE_BY;
             SensorHandler[] temp = new SensorHandler[newLength];
+            Reading[] rTemp = new Reading[newLength];
             System.arraycopy(sensors, 0, temp, 0, sensorCount);
+            System.arraycopy(accumulatedData, 0, rTemp, 0, sensorCount);
             sensors = temp;
+            accumulatedData = rTemp;
         }
         // Check if another sensor uses the same metric type as the one we're removing.
         boolean secondDependency = false;
@@ -154,8 +153,21 @@ public class SensorStation {
         pulse.start(sensors); // This is the only way the design permits.
     }
     
-    public void addData() { 
-        // Write this once when all parts of the program are connected together.
+    public void addData(Reading data) { 
+        int index = -1;
+        for(int i = 0; i < sensorCount; ++i) {
+            if(accumulatedData[i] != null) {
+                if(accumulatedData[i].getSensor() == data.getSensor()) {
+                    accumulatedData[i] = data;
+                    return;
+                }
+            }
+            else
+            {
+                index = i;
+            }
+        }
+        accumulatedData[index] = data;
     }
 
     void addNewActuator(ActuatorHandler actuator) {
@@ -165,10 +177,6 @@ public class SensorStation {
             actuators = temp;
         }
         actuators[actuatorCount++] = actuator;
-    }
-
-   String getId() {
-        return Id;
     }
 
     void deleteActuator(ActuatorHandler handles) {
@@ -237,11 +245,10 @@ public class SensorStation {
     
     void addRule(Float max, Float min, String Metric, ActuatorHandler actuator) {
         boolean added=false;//Stop the loop once the rule has been added
-        for (int i = 0; i < actuatorCount&& !added; i++) {
+        for (int i = 0; i < actuatorCount; i++) {
             //if(actuators[i].getId()==actuator.getId()){ 
             if(actuators[i]==actuator){
                   actuators[i].addRule(min, max, Metric);
-                  added=true;
                   break;
             }
         }
@@ -250,7 +257,6 @@ public class SensorStation {
     void deleteAlert(Alert alert) {
         //once getAllAlerts function is done we can find an alert and delte it
     }
-    
     
     SensorHandler[] getAllSensors()
     {
@@ -268,5 +274,9 @@ public class SensorStation {
 
     int getActuatorsCount() {
         return this.actuatorCount;
+    }
+    
+    String getId() {
+        return id;
     }
 }

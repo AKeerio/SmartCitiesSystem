@@ -13,12 +13,32 @@ public class Sensor {
         this.previousReading = this.getSensorReading();
     }
     
-    public Reading getSensorReading() {
+    public final Reading getSensorReading() {
         Reading random = new Reading();
-        random.attachLocation(new String[] {"Road1", "Road2", "Road3", "Road4"}[(int)(Math.random() * 10) % 4]);
-        random.attachMetrics("Cars");
+        String metric = new String[] {"Cars", "Temperature", "Humidity", "Air Quality Index", "River Level", "River Flow"}[(int)(Math.random() * 10) % 4];
+        random.attachLocation(new String[] {"District 1", "District 2", "District 3", "District 4"}[(int)(Math.random() * 10) % 4]);
+        random.attachMetrics(metric);
         random.attachTimestamp(SystemClock.getTimestamp());
-        random.attachValue((int)(Math.random() * 10) % 11);
+        switch(metric) {
+            case "Cars":
+                random.attachValue(Emulator.getTrafficData());
+                break;
+            case "Temperature":
+                random.attachValue(Emulator.getTemperatureData());
+                break;
+            case "Humidity":
+                random.attachValue(Emulator.getHumidityData());
+                break;
+            case "Air Quality Index":
+                random.attachValue(Emulator.getAirQualityData());
+                break;
+            case "River Level":
+                random.attachValue(Emulator.getRiverLevelReading());
+                break;
+            case "River Flow":
+                random.attachValue(Emulator.getRiverFlowReading());
+                break;
+        }
         this.previousReading = random;
         return random;
     }

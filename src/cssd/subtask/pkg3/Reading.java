@@ -7,6 +7,7 @@ public class Reading {
     
     private Timestamp time;
     private String location;
+    private SensorHandler associatedSensor;
     private String metrics;
     private double value;
     
@@ -16,6 +17,10 @@ public class Reading {
     
     public void attachTimestamp(Timestamp time) {
         this.time = time;
+    }
+    
+    public void attachSensor(SensorHandler sensor) {
+        this.associatedSensor = sensor;
     }
     
     public void attachLocation(String location) {
@@ -48,6 +53,10 @@ public class Reading {
     
     public double getValue() {
         return this.value;
+    }
+    
+    public SensorHandler getSensor() {
+        return this.associatedSensor;
     }
     
 }
