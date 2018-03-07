@@ -28,7 +28,6 @@ public class ControlPanel extends javax.swing.JFrame {
     private SensorHandler[] sensors;
     private ActuatorHandler[] actuators;
     private Rule[] rules;
-    private User user;
 
     private final DefaultListModel networksModel = new DefaultListModel();
     private final DefaultListModel stationsModel = new DefaultListModel();
@@ -41,16 +40,6 @@ public class ControlPanel extends javax.swing.JFrame {
      */
     public ControlPanel() {
         initComponents();
-    }
-    boolean logOn(String name, String password) 
-    {
-       User temp =  smartCity.login(name, password);
-       if (temp != null)
-       {
-           user=temp;
-           return true;
-       }
-       return false;
     }
 
     /**
@@ -335,22 +324,20 @@ public class ControlPanel extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane5)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(deleteUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(addUser, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(67, 67, 67)
-                                .addComponent(controlPanelLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(showGUIData))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addContainerGap())))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(deleteUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(addUser, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(67, 67, 67)
+                        .addComponent(controlPanelLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(showGUIData))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -367,9 +354,9 @@ public class ControlPanel extends javax.swing.JFrame {
                                 .addComponent(deleteUser)))))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -569,7 +556,7 @@ public class ControlPanel extends javax.swing.JFrame {
                        
         } else {
             now = LocalDateTime.now();
-            logArea.append(DTF.format(now) + ":\tPlease select a location first" + "\n");
+            logArea.append(DTF.format(now) + ":\tPlease select a station first" + "\n");
         }
 
     }//GEN-LAST:event_addActuatorActionPerformed
@@ -620,22 +607,24 @@ public class ControlPanel extends javax.swing.JFrame {
                 result = JOptionPane.showConfirmDialog(null, message2, "OK", JOptionPane.OK_CANCEL_OPTION);
 
             }
-///////////////////////////////////////////////////////////////////// if the min or max are entered as "not numbers" it shows the message only once
-//you want it in a loop
 
-            try {
-                min = parseFloat(minField.getText());
-                max = parseFloat(maxField.getText());
-            } catch (NumberFormatException ex) {
-                Object[] message3 = {
-                    "<html><font color=\"red\">Min and Max must be numbers</font></html>",
-                    "Min:", minField,
-                    "Max:", maxField,
-                    "Metric", metricField
-                };
-                result = JOptionPane.showConfirmDialog(null, message3, "OK", JOptionPane.OK_CANCEL_OPTION);
+            boolean done=false;
+            while(!done)
+            {
+                try {
+                    min = parseFloat(minField.getText());
+                    max = parseFloat(maxField.getText());
+                    done=true;
+                } catch (NumberFormatException ex) {
+                    Object[] message3 = {
+                        "<html><font color=\"red\">Min and Max must be numbers</font></html>",
+                        "Min:", minField,
+                        "Max:", maxField,
+                        "Metric", metricField
+                    };
+                    result = JOptionPane.showConfirmDialog(null, message3, "OK", JOptionPane.OK_CANCEL_OPTION);
+                }
             }
-//////////////////////////////////////////////////////////////////////////
             if (result == JOptionPane.OK_OPTION) {
                 String metric = metricField.getText();
                 Rule rule = new Rule(min, max, metric);

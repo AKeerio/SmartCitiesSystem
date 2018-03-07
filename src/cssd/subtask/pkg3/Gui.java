@@ -13,16 +13,12 @@ import javax.swing.JOptionPane;
  * @author b4014007
  */
 public class Gui extends javax.swing.JFrame {
+    
+    private SmartCity sc;
 
-    /**
-     * Creates new form Gui
-     */
-    public Gui() {
-        
-        initComponents();
-        // In real life we would have this as either a vector or have automatic expansions, but this is only a prototype.
-        cssd.subtask.pkg3.User[] setOfUsers = new User[10];
-        
+    public Gui(SmartCity sc) {
+        initComponents(); 
+        this.sc = sc;
     }
 
     /**
@@ -129,6 +125,8 @@ public class Gui extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (Username.getText().compareTo("")!=0&&password.getText().compareTo("")!=0)
         {
+            
+            /*
             ControlPanel cp= new ControlPanel();
             boolean temp = cp.logOn(this.Username.getText(), this.password.getText());
             if (temp==true)
@@ -139,6 +137,7 @@ public class Gui extends javax.swing.JFrame {
             }
             else
                 JOptionPane.showMessageDialog(new JOptionPane(), "Incorrect log in, please try again");
+            */
         }
         else JOptionPane.showMessageDialog(new JOptionPane(), "Please enter details");
     
@@ -148,43 +147,8 @@ public class Gui extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_UsernameActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Gui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Gui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Gui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Gui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Gui().setVisible(true);
-                
-            }
-        });
-    }
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField Username;
     private javax.swing.JButton loginButton;

@@ -18,16 +18,30 @@ public class SmartCity {
     private int networksCreated =0;
     private int usersCount =2;
     private User[] users= new User[10];
+    private User[] loggedOn = new User[10];
+    private int usersLoggedOn = 0;
     
     SmartCity()
     {
         GROW_BY = 10;
         networks = new SensorNetwork[GROW_BY];
+        
         users[0]= new Admin (618, "Christopher Franklin", "d0nk3y", true);
         users[1]= new Admin (436, "Aijaz", "c@t", false);
-        users[0]= new User (326, "Christopher Beattie", "m0nk3y");
-        users[1]= new User (326, "Louis", "m0nk3y");
-        usersCount = 2;
+        users[2]= new User (326, "Christopher Beattie", "m0nk3y");
+        users[3]= new User (326, "Louis", "m0nk3y");
+        users[4]= new Admin (618, "admin", "pass", true);
+        usersCount = 5;
+    }
+    
+    public static void main(String args[]) {
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                SmartCity sc = new SmartCity();
+                new Gui(sc).setVisible(true);
+                
+            }
+        });
     }
     
     SensorNetwork[] getAllNetworks()
@@ -177,16 +191,15 @@ public class SmartCity {
         users=temp;
     }
     
-    User login(String name, String password)
+    boolean login(String name, String password)
     {
-        int i=0;
-        boolean found=false;
-        while(i<this.usersCount)
-        {
-            if (users[i].logIn(name, password)==true)
-                return users[i];
-            else i++;
+        for(User usr : users) {
+            if(usr.logIn(name, password))
+            {
+                loggedOn[usersLoggedOn++] = usr;
+                return true;
+            }
         }
-        return null;
+        return false;
     }
 }
