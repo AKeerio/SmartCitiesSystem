@@ -44,11 +44,19 @@ public class SmartCity {
         });
     }
     
+    /**
+     * Returns an array of Sensor Network objects, each containing their own array of Sensor Stations .
+     * @return Returns an array of Sensor Networks objects.
+     */
     SensorNetwork[] getAllNetworks()
     {
         return networks;
     }
     
+     /**
+     * Adds a new Network object to the Smart City. 
+     * @param  id The id of the new sensor that is being added.
+     */
     void addNewNetwork(String Id)
     {
         if (networksCount > 0.9*networks.length)
@@ -59,6 +67,10 @@ public class SmartCity {
         networksCount++;
         this.networksCreated++;
     }
+    /**
+     * Adds a new Station to a designated network. 
+     * @param  network The desired network you want to add the station to.
+     */
     void addNewStation(SensorNetwork network){
              String temp = network.getId();
         for (int i =0; i<networksCount; i++)
@@ -70,6 +82,13 @@ public class SmartCity {
             }
         }
     }
+    
+    /**
+     * Adds a new Sensor to a designated station. 
+     * @param  network The desired network you want to add the sensor to.
+     * @param  station The desired station you want to add the sensor to.
+     * @param  sensor ???????.
+     */
     void addNewSensor(SensorNetwork network, SensorStation station, SensorHandler sensor)
     {
         String temp = network.getId();
@@ -83,6 +102,10 @@ public class SmartCity {
         }
     }
     
+    /**
+     * Adds a new User to the array of users. 
+     * @param  addMe The user you want to add.
+     */
     void addNewUser(User addMe)
     {
              if (usersCount > 0.9*users.length)
@@ -93,6 +116,10 @@ public class SmartCity {
         usersCount++;
     }
     
+    /**
+     * Adds a new User to the array of users. 
+     * @param  addMe The user you want to add.
+     */
     void addNewActuator(SensorNetwork network, SensorStation station, ActuatorHandler handler)
     {
         String temp = network.getId();
@@ -106,6 +133,10 @@ public class SmartCity {
         }
     }
     
+    /**
+     * Deletes a network from the network arrays. 
+     * @param  network The network you want to delete.
+     */
     void deleteNetwork(SensorNetwork network)
     {    
           for(int i=0; i<networksCount; i++)
@@ -121,6 +152,12 @@ public class SmartCity {
             }
         }
     }
+    
+    /**
+     * Deletes a station from the desired network. 
+     * @param  network The network you want to delete the station from.
+     * @param  station The station you want to delete.
+     */
     void deleteStation (SensorNetwork network, SensorStation station)
     {
         String temp = network.getId();
@@ -134,6 +171,12 @@ public class SmartCity {
         }
     }
     
+    /**
+     * Deletes a sensor from the desired station. 
+     * @param  network The network you want to delete the sensor from.
+     * @param  station The station you want to delete the sensor from.
+     * @param  station The sensor you want to delete.
+     */
     void deleteSensor (SensorNetwork network, SensorStation station, SensorHandler sensor)
     {
         String temp = network.getId();
@@ -146,6 +189,12 @@ public class SmartCity {
             }
         }
     }
+    
+    /**
+     * Deletes a desired user. 
+     * @param  userIn The user you want to delete.
+     * 
+     */
     void deleteUser (User userIn)
     {
         int Id = userIn.getId();
@@ -162,6 +211,13 @@ public class SmartCity {
             }
         }
     }
+    
+    /**
+     * Deletes a desired actuator. 
+     * @param  network The network you want to delete the actuator from.
+     * @param  station The station you want to delete the actuator from.
+     * @param  handler The handler you want to delete.
+     */
     void deleteActuator (SensorNetwork network, SensorStation station, ActuatorHandler handler)
     {
         String temp = network.getId();
@@ -174,9 +230,18 @@ public class SmartCity {
             }
         }
     }
+    
+    /**
+     * Returns the number of networks. 
+     * @return integer value of the network count.
+     */
     int getNetworksCount(){
         return this.networksCount;
     }
+    
+    /**
+     * Resizes the array of networks. 
+     */
     void resizeNetworks()
     {
         SensorNetwork[] temp = new SensorNetwork[networks.length+GROW_BY];
@@ -184,6 +249,10 @@ public class SmartCity {
         networks = temp;
     }
     
+    
+    /**
+     * Resizes the array of users. 
+     */
     void resizeUsers()
     {
         User[] temp = new User[networks.length+GROW_BY];
