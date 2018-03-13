@@ -29,7 +29,7 @@ public class SmartCity {
         users[0]= new Admin (618, "Christopher Franklin", "d0nk3y", true);
         users[1]= new Admin (436, "Aijaz", "c@t", false);
         users[2]= new User (326, "Christopher Beattie", "m0nk3y");
-        users[3]= new User (326, "Louis", "m0nk3y");
+        users[3]= new User (326, "Louis", "password123"); // Boss mode.
         users[4]= new Admin (618, "admin", "pass", true);
         usersCount = 5;
     }
@@ -260,15 +260,24 @@ public class SmartCity {
         users=temp;
     }
     
-    boolean login(String name, String password)
+    /**
+    * Logs a user into the system.
+    @param name The username for the user.
+    @param password The password for the user.
+    @return Returns a security rating. -1 means the user doesn't exist. 0 is a standard user. 1 is a standard admin, 2 is a root admin.
+    */
+    int login(String name, String password)
     {
         for(User usr : users) {
             if(usr.logIn(name, password))
             {
                 loggedOn[usersLoggedOn++] = usr;
-                return true;
+                if(usr instanceof Admin) {
+                    return ((Admin)usr).RootAdmin ? 2 : 1;
+                }
+                return 0;
             }
         }
-        return false;
+        return -1;
     }
 }
