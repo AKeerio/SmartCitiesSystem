@@ -26,6 +26,7 @@ public class ActuatorHandler {
         this.actuator = new Actuator();
     }
     
+
     public void sendData(AverageReading[] avgReadings){
         for (int i = 0; i < avgReadings.length; i++) {
             for (int j = 0; j < rulesCount; j++) {
@@ -52,27 +53,48 @@ public class ActuatorHandler {
         rulesCount++;
     }
 
+     /**
+     * Returns the array of rules  
+     */
     Rule[] getRules() {
         return rules;
     }
 
+    /**
+     * Returns the count of rules  
+     */
     int getRulesCount() {
         return rulesCount;
     }
 
+    /**
+     * Sets the rules for the Actuator Handler
+     * @param rules The array of rules that you want the ACtuator Handler to have.
+     */
     void setRules(Rule[] rules) {
         this.rules=rules;
     }
-
+    
+    /**
+     * Sets the rule count for the current Actuator Handler
+     * @param rulesCount The integer value you want the rule count to be.
+     */
     void setRulesCount(int rulesCount) {
         this.rulesCount=rulesCount;
     }
     
+    /**
+     * Gets the Id of the current Actuator Handler
+     * @return A string value of the Actuator Handlers id.
+     */
     public String getId() {
         return this.id;
     }
     
-    
+    /**
+     * Adds a new to this Actuator Handler array of rules
+     * @param rule The rule you want to add.
+     */
     void addNewRule(Rule rule) {
         if(rulesCount >= rules.length) {
             Rule[] temp = new Rule[rules.length + GROW_BY];
@@ -81,15 +103,28 @@ public class ActuatorHandler {
         }
         rules[rulesCount++] = rule;
     }
-
+    
+    /**
+     * Returns an array of rules for this Actuator Handler.
+     * @return Returns an array of rules.
+     */
     Rule[] getAllRules() {
        return this.rules;
     }
     
+    /**
+     * Sets the rule count for the current Actuator Handler
+     * @return Returns an integer value of the rule count. 
+     */
     int getRuleCount(){
         return this.rulesCount;
     }
 
+    /**
+     * Deletes a desired rule from a desired station.
+     * @param rule The desired rule you want to delete.
+     * @param station The station you want to delete the rule from.
+     */
     void deleteRule(Rule rule, SensorStation station) {
      station.deleteRule(rule, this);
     }

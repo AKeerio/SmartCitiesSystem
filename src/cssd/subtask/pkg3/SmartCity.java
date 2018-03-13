@@ -87,7 +87,7 @@ public class SmartCity {
      * Adds a new Sensor to a designated station. 
      * @param  network The desired network you want to add the sensor to.
      * @param  station The desired station you want to add the sensor to.
-     * @param  sensor ???????.
+     * @param  sensor The sensor handler that you want to add.
      */
     void addNewSensor(SensorNetwork network, SensorStation station, SensorHandler sensor)
     {
