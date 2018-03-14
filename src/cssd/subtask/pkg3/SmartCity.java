@@ -34,16 +34,6 @@ public class SmartCity {
         usersCount = 5;
     }
     
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                SmartCity sc = new SmartCity();
-                new Gui(sc).setVisible(true);
-                
-            }
-        });
-    }
-    
     /**
      * Returns an array of Sensor Network objects, each containing their own array of Sensor Stations .
      * @return Returns an array of Sensor Networks objects.
@@ -71,14 +61,10 @@ public class SmartCity {
      * Adds a new Station to a designated network. 
      * @param  network The desired network you want to add the station to.
      */
-    void addNewStation(SensorNetwork network){
-             String temp = network.getId();
-        for (int i =0; i<networksCount; i++)
-        {
-            if (networks[i].getId().equals(temp))
-            {
-                networks[i].addNewStation(temp);
-                i=networksCount;
+    void addNewStation(String networkId, String stationId){
+        for(SensorNetwork sn : networks) {
+            if(sn != null && sn.getId().compareTo(networkId) == 0) {
+                sn.addNewStation(stationId);
             }
         }
     }
@@ -89,15 +75,20 @@ public class SmartCity {
      * @param  station The desired station you want to add the sensor to.
      * @param  sensor The sensor handler that you want to add.
      */
-    void addNewSensor(SensorNetwork network, SensorStation station, SensorHandler sensor)
+    void addNewSensor(String networkId, String stationId, String sensorId, String sensorLocation)
     {
-        String temp = network.getId();
         for (int i =0; i<networksCount; i++)
         {
-            if (networks[i].getId().equals(temp))
+            if (networks[i].getId().equals(networkId))
             {
-                networks[i].addNewSensor(station, sensor);
-                i=networksCount;
+                for(SensorStation ss : networks[i].getAllStations()) {
+                    if(ss.getId().compareTo(stationId) == 0) {
+                        SensorHandler sh = new SensorHandler(new Sensor(sensorLocation), sensorId);
+                        sh.addListener(new SensorChangeListener(ss));
+                        ss.addNewSensor(sh);
+                        return;
+                    }
+                }
             }
         }
     }
