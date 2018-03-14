@@ -25,6 +25,14 @@ public class Gui extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 SmartCity sc = new SmartCity();
+                sc.addNewNetwork("Network 1");
+                sc.addNewNetwork("Network 2");
+                sc.addNewNetwork("Network 3");
+           
+                sc.addNewStation("Network 1", "Station 1");
+                sc.addNewSensor("Network 1", "Station 1", "Sensor 1", "Road 54");
+   
+                
                 new Gui(sc).setVisible(true);
             }
         });
