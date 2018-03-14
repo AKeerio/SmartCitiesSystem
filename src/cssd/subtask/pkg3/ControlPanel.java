@@ -723,10 +723,6 @@ public class ControlPanel extends javax.swing.JFrame {
         });
     }                                     
 
-    }//GEN-LAST:event_stationsListValueChanged
-    /**
-     * Adding demo networks to initialise the network array.
-     */
     public void addExistingNetworks() {
         //demo networks to add them initially
         smartCity.addNewNetwork("Temp network 1");
@@ -737,15 +733,10 @@ public class ControlPanel extends javax.swing.JFrame {
         }
         networksList.setModel(networksModel);
     }
-    
-    /**
-     * Returns the current smart city.
-     * @return The current smart city object.
-     */
+
     public SmartCity getSmartCity() {
         return smartCity;
     }
-    
     /**
      * @param args the command line arguments
      */
