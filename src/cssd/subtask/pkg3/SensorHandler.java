@@ -10,6 +10,7 @@ public class SensorHandler {
     private long lastTime;
     private final long DEFAULT_PULSE;
     private String Id;
+    private Alert alert;
     
     public SensorHandler(Sensor sensor, String IdIn) {
         DEFAULT_PULSE = 1000;
@@ -48,6 +49,14 @@ public class SensorHandler {
         lastTime = System.currentTimeMillis();
         Reading reading = getLastReading();
         listener.Trigger(reading); // If you get an error here, you've not set the listener.
+    }
+    
+    public void deleteAlert() {
+        this.alert = null;
+    }
+    
+    public Alert getAlert() {
+        return this.alert;
     }
     
     String getId()
