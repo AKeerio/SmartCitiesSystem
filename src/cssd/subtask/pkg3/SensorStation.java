@@ -1,5 +1,6 @@
 package cssd.subtask.pkg3;
 import java.util.HashMap;
+import java.util.ArrayList;
 
 // Louis
 
@@ -193,6 +194,16 @@ public class SensorStation {
             }
         }
         actuatorCount--;
+    }
+    
+    public Alert[] getAllAlerts() {
+        ArrayList<Alert> alertsList = new ArrayList<>();
+        for(SensorHandler sh : sensors) {
+            if(sh.getAlert() != null) {
+                alertsList.add(sh.getAlert());
+            }
+        }
+        return alertsList.size() > 0 ? alertsList.toArray(new Alert[alertsList.size()]) : null;
     }
 
     void deleteRule(Rule rule, ActuatorHandler actuator) {
