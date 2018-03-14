@@ -1,6 +1,6 @@
 package cssd.subtask.pkg3;
-import java.util.HashMap;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 // Louis
 
@@ -195,16 +195,6 @@ public class SensorStation {
         }
         actuatorCount--;
     }
-    
-    public Alert[] getAllAlerts() {
-        ArrayList<Alert> alertsList = new ArrayList<>();
-        for(SensorHandler sh : sensors) {
-            if(sh.getAlert() != null) {
-                alertsList.add(sh.getAlert());
-            }
-        }
-        return alertsList.size() > 0 ? alertsList.toArray(new Alert[alertsList.size()]) : null;
-    }
 
     void deleteRule(Rule rule, ActuatorHandler actuator) {
         Rule[] rules=actuator.getAllRules();
@@ -228,30 +218,6 @@ public class SensorStation {
                 actuators[i]=actuator;
             }
         }
-        /* 
-        //We might need to delete this code but I ma keeping it just incase we need it
-        for (int i = 0; i < actuatorCount; i++) {
-            if(actuators[i].getId().equals(actuator.getId()))
-            {
-                Rule[] rules= actuators[i].getRules();//did this to avoid creating global variables
-                int rulesCount=actuators[i].getRulesCount();
-                for (int j = 0; j < rulesCount; j++) {
-                    if(rules[j]==rule)
-                    {
-                        for (int k = i; k<rulesCount-2; k++)
-                        {
-                            rules[k]=rules[k+1];
-                        }
-                        rulesCount--;
-                        i=rulesCount;
-                    }
-                }
-                actuators[i].setRules(rules);
-                actuators[i].setRulesCount(rulesCount);
-                break;
-            }
-        }
-        */
     }
     
     void addRule(Float max, Float min, String Metric, ActuatorHandler actuator) {
@@ -263,6 +229,16 @@ public class SensorStation {
                   break;
             }
         }
+    }
+    
+    public Alert[] getAllAlerts() {
+        ArrayList<Alert> alertsList = new ArrayList<>();
+        for(SensorHandler sh : sensors) {
+            if(sh.getAlert() != null) {
+                alertsList.add(sh.getAlert());
+            }
+        }
+        return alertsList.size() > 0 ? alertsList.toArray(new Alert[alertsList.size()]) : null;
     }
 
     void deleteAlert(Alert alert) {
