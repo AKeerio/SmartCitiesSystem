@@ -59,7 +59,7 @@ public class SensorHandler {
         return this.alert;
     }
     
-    String getId()
+    public String getId()
     {
         return this.Id;
     }
