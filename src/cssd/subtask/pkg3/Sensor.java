@@ -43,18 +43,10 @@ public class Sensor {
         return random;
     }
     
-    /**
-     *Returns the location for the desired sensor.
-     * @return  The string value for location.
-     */
     public String getSensorLocation() {
         return this.location;
     }
     
-    /**
-     *Returns the previous reading for the desired sensor.
-     * @return  The reading object for the desired sensor.
-     */
     public Reading getLastReading() {
         return this.previousReading;
     }
