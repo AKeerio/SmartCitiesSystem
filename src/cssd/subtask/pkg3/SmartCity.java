@@ -49,7 +49,7 @@ public class SmartCity {
      */
     void addNewNetwork(String Id)
     {
-        if (networksCount > 0.9*networks.length)
+        if (networksCount > 0.9*networks.length) // TODO: This needs sorting out completely.
         {
             resizeNetworks();
         }
@@ -57,6 +57,7 @@ public class SmartCity {
         networksCount++;
         this.networksCreated++;
     }
+    
     /**
      * Adds a new Station to a designated network. 
      * @param  network The desired network you want to add the station to.
@@ -73,7 +74,7 @@ public class SmartCity {
      * Adds a new Sensor to a designated station. 
      * @param  network The desired network you want to add the sensor to.
      * @param  station The desired station you want to add the sensor to.
-     * @param  sensor The sensor handler that you want to add.
+     * @param  sensor ???????.
      */
     void addNewSensor(String networkId, String stationId, String sensorId, String sensorLocation)
     {
