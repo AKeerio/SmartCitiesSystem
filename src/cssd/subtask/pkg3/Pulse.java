@@ -11,6 +11,10 @@ public class Pulse {
         worker = new PulseThread();
     }
     
+    /**
+     * Starts the worker with the desired sensors
+     * @param sensors The array of sensors you want to
+     */
     public void start(SensorHandler[] sensors) {
         this.sensors = sensors;
         worker.start();
