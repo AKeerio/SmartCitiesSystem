@@ -159,7 +159,7 @@ public class Gui extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Invalid username or password.", "Warning", JOptionPane.ERROR_MESSAGE);
                 break;
             case 0:
-                GUIData guid = new GUIData();
+                GUIData guid = new GUIData(sc);
                 guid.setVisible(true);
                 break;
             case 1:
