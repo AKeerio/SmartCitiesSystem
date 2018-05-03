@@ -13,14 +13,14 @@ public class SensorNetwork {
     private SensorStation[] stations;
     private int stationsCount;
     private final int GROW_BY;
-    private String Id;
+    private String id;
     
     SensorNetwork(String IdIn)
     {
         stationsCount =0;
-        GROW_BY=10;
-        stations = new SensorStation[GROW_BY];
-        Id = IdIn;
+        GROW_BY=1;
+        stations = new SensorStation[0];
+        id = IdIn;
     }
     SensorStation[] getAllStations()
     {
@@ -32,7 +32,7 @@ public class SensorNetwork {
     }
     void addNewStation(String Id)
     {
-        if (stationsCount > 0.9*stations.length)
+        if (stationsCount >= stations.length)
         {
             resize();
         }
@@ -72,12 +72,14 @@ public class SensorNetwork {
         {
             if (stations[i].getId().equals(station.getId()))
             {
-                for (int j = i; j<stationsCount-2; j++)
+                for (int j = i; j<stationsCount-1; j++)
                 {
                     stations[j]=stations[j+1];
                 }
                 stationsCount--;
-                i=stationsCount;
+                SensorStation[] temp = new SensorStation[stationsCount];
+                System.arraycopy(stations, 0, temp, 0, stationsCount);
+                stations = temp;
             }
         }
     }
@@ -106,11 +108,11 @@ public class SensorNetwork {
     private void resize()
     {
         SensorStation[] temp = new SensorStation[stations.length+GROW_BY];
-        System.arraycopy(temp, 0, stations, 0, stationsCount);
+        System.arraycopy(stations, 0, temp, 0, stationsCount);
         stations = temp;
     }    
 
     String getId() {
-        return Id;
+        return id;
     }
 }

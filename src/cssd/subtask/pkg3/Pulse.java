@@ -11,20 +11,20 @@ public class Pulse {
         worker = new PulseThread();
     }
     
-    /**
-     * Starts the worker with the desired sensors
-     * @param sensors The array of sensors you want to
-     */
     public void start(SensorHandler[] sensors) {
         this.sensors = sensors;
         worker.start();
+    }
+    
+    public void stop() {
+        worker.interrupt();
     }
     
     private class PulseThread extends Thread {
         
         @Override
         public void run() {
-            while(true) {
+            while(!Thread.currentThread().isInterrupted()) {
                 for(SensorHandler sensor : sensors) {
                     if(sensor.tick()) {
                         sensor.notifyListener();
@@ -32,7 +32,7 @@ public class Pulse {
                 }
             }
         }
-        
+     
     }
     
 }

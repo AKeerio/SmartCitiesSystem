@@ -1,5 +1,7 @@
 package cssd.subtask.pkg3;
 
+import javax.swing.JFrame;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -15,23 +17,25 @@ public class SmartCity {
     private final int GROW_BY;
     private SensorNetwork[] networks;
     private int networksCount = 0;
-    private int networksCreated =0;
-    private int usersCount =2;
-    private User[] users= new User[10];
+    private int usersCount = 0;
+    private User[] users= new User[0];
     private User[] loggedOn = new User[10];
+    private JFrame[] windows;
+    private int windowCount;
     private int usersLoggedOn = 0;
     
     SmartCity()
     {
-        GROW_BY = 10;
-        networks = new SensorNetwork[GROW_BY];
+        GROW_BY = 1;
+        networks = new SensorNetwork[0];
+        windows = new JFrame[0];
+        windowCount = 0;
         
-        users[0]= new Admin (618, "Christopher Franklin", "d0nk3y", true);
-        users[1]= new Admin (436, "Aijaz", "c@t", false);
-        users[2]= new User (326, "Christopher Beattie", "m0nk3y");
-        users[3]= new User (326, "Louis", "password123"); // Boss mode.
-        users[4]= new Admin (618, "admin", "pass", true);
-        usersCount = 5;
+        addNewUser(new Admin (618, "Christopher Franklin", "d0nk3y", true));
+        addNewUser(new Admin (436, "Aijaz", "c@t", false));
+        addNewUser(new User (326, "Christopher Beattie", "m0nk3y"));
+        addNewUser(new User (326, "Louis", "password123"));
+        addNewUser(new Admin (618, "admin", "pass", true));
     }
     
     /**
@@ -49,13 +53,12 @@ public class SmartCity {
      */
     void addNewNetwork(String Id)
     {
-        if (networksCount > 0.9*networks.length) // TODO: This needs sorting out completely.
+        if (networksCount >= networks.length) // TODO: This needs sorting out completely.
         {
             resizeNetworks();
         }
         networks[networksCount] = new SensorNetwork(Id);
         networksCount++;
-        this.networksCreated++;
     }
     
     /**
@@ -100,7 +103,7 @@ public class SmartCity {
      */
     void addNewUser(User addMe)
     {
-             if (usersCount > 0.9*users.length)
+        if (usersCount >= users.length)
         {
             resizeUsers();
         }
@@ -120,7 +123,7 @@ public class SmartCity {
             if (networks[i].getId().equals(temp))
             {
                 networks[i].addNewActuator(station, handler);
-                i=networksCount;
+                break;
             }
         }
     }
@@ -131,16 +134,18 @@ public class SmartCity {
      */
     void deleteNetwork(SensorNetwork network)
     {    
-          for(int i=0; i<networksCount; i++)
+        for(int i=0; i<networksCount; i++)
         {
             if (networks[i].getId().equals(network.getId()))
             {
-                for (int j = i; j<networksCount-2; j++)
+                for (int j = i; j<networksCount-1; j++)
                 {
                     networks[j]=networks[j+1];
                 }
-                i=networksCount;
                 networksCount--;
+                SensorNetwork[] temp = new SensorNetwork[networksCount];
+                System.arraycopy(networks, 0, temp, 0, networksCount);
+                networks = temp;
             }
         }
     }
@@ -158,7 +163,7 @@ public class SmartCity {
             if (networks[i].getId().equals(temp))
             {
                 networks[i].deleteStation(station);
-                i=networksCount;
+                break;
             }
         }
     }
@@ -177,7 +182,7 @@ public class SmartCity {
             if (networks[i].getId().equals(temp))
             {
                 networks[i].deleteSensor(station, sensor);
-                i=networksCount;
+                break;
             }
         }
     }
@@ -198,8 +203,8 @@ public class SmartCity {
                {
                    users[j]=users[j+1];
                }
-               i=usersCount;
                usersCount--;
+               break;
             }
         }
     }
@@ -218,7 +223,7 @@ public class SmartCity {
             if (networks[i].getId().equals(temp))
             {
                 networks[i].deleteActuator(station, handler);
-                i=networksCount;
+                break;
             }
         }
     }
@@ -237,8 +242,28 @@ public class SmartCity {
     void resizeNetworks()
     {
         SensorNetwork[] temp = new SensorNetwork[networks.length+GROW_BY];
-        System.arraycopy(temp, 0, networks, 0, networksCount);
+        System.arraycopy(networks, 0, temp, 0, networksCount);
         networks = temp;
+    }
+    
+    public void addWindow(JFrame window) {
+        if(windowCount >= windows.length) {
+            JFrame[] temp = new JFrame[windows.length + 1];
+            System.arraycopy(windows, 0, temp, 0, windowCount);
+            windows = temp;
+        }
+        windows[windowCount++] = window;
+    }
+    
+    // Listener type thing. Notifies all windows it's time to refresh.
+    public void notifyRefresh() {
+        for(JFrame fr : windows) {
+            if(fr instanceof ControlPanel) {
+               ((ControlPanel) fr).refreshGui();
+            } else if(fr instanceof GUIData) {
+                ((GUIData) fr).refreshGui();
+            }
+        }
     }
     
     
@@ -247,8 +272,8 @@ public class SmartCity {
      */
     void resizeUsers()
     {
-        User[] temp = new User[networks.length+GROW_BY];
-        System.arraycopy(temp, 0, users, 0, networksCount);
+        User[] temp = new User[users.length+GROW_BY];
+        System.arraycopy(users, 0, temp, 0, usersCount);
         users=temp;
     }
     

@@ -20,12 +20,6 @@ public class Rule {
         max=maxIn;
         metric=MetricIn;
     }
-    
-    /**
-     * Checks the rule from the desired reading against its value.
-     * @return  The boolean value from the desired reading.
-     * @param reading The desired reading you want checked.
-     */
     public boolean checkRule(AverageReading reading)
     {
         if(min!=null)
@@ -36,7 +30,7 @@ public class Rule {
                 return false;
         }
         
-        if(max!=null)
+        if(max!=null    )
         {
             if(reading.getValue()>max)            
                 return true;
@@ -45,11 +39,7 @@ public class Rule {
         }
         return false;
     }
-    
-    /**
-     * Returns the data from the rule.
-     * @return  A string value displaying the minimum, maximum and metric for the rule.
-     */
+
     String getRuleData() {
         return "Min: "+this.min+" Max: "+this.max+" Metric: "+this.metric;
     }

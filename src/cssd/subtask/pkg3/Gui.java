@@ -160,14 +160,17 @@ public class Gui extends javax.swing.JFrame {
                 break;
             case 0:
                 GUIData guid = new GUIData(sc);
+                sc.addWindow(guid);
                 guid.setVisible(true);
                 break;
             case 1:
-                ControlPanel cp = new ControlPanel();
+                ControlPanel cp = new ControlPanel(sc);
+                sc.addWindow(cp);
                 cp.setVisible(true);
                 break;
             case 2:
-                ControlPanel rcp = new ControlPanel(); // Root admin's control panel.
+                ControlPanel rcp = new ControlPanel(sc); // Root admin's control panel.
+                sc.addWindow(rcp);
                 rcp.setVisible(true);
                 break;
         }

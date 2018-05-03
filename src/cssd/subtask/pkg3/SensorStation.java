@@ -107,6 +107,9 @@ public class SensorStation {
         if(!metricTypes.containsKey(metricType)) {
             metricTypes.put(metricType, metricTypes.size());
         }
+        if(pulse != null) {
+            pulse.stop();
+        }
         pulse = new Pulse();
         pulse.start(sensors); // This is the only way the design permits.
     }   
